@@ -1,0 +1,29 @@
+{
+  "facture":[
+
+    {
+        "id": 2,
+        "date_creation_bo": "2021-05-05T23:26:29",
+        "date_recp_bo": "2021-05-05T23:26:29",
+        "num_bande": "a",
+        "num_fact": "ee",
+        "num_fornisseur": "csfssfffffffffffffahhhhhhhc",
+        "tcc": "w",
+        "archiver": false,
+        "bande_commande": false,
+        "structure_Fact": null
+    },
+    {
+        "id": 3,
+        "date_creation_bo": "2021-05-05T23:26:49",
+        "date_recp_bo": "2021-05-05T23:26:49",
+        "num_bande": "abbbb",
+        "num_fact": "ee",
+        "num_fornisseur": "ffahhhhhhhc",
+        "tcc": "w",
+        "archiver": false,
+        "bande_commande": false,
+        "structure_Fact": null
+    }
+]
+}
