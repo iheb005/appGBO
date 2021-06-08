@@ -43,7 +43,10 @@ const routes: Routes = [
         path: 'facture', // child route path
         component: FactureComponent, // child route component that the router renders
       },
- //  {path: 'facture/:id', component: AnnexeComponent},
+      {
+        path: 'facture/:id', 
+        component:AnnexeComponent,
+      }
 
 
     ],
@@ -93,7 +96,7 @@ const routes: Routes = [
   {path: 'welcome', component: LandingComponent},
   {path: 'home1', component: HomePComponent},
   {path: '', redirectTo: '/home1', pathMatch: 'full'},
-  {path: 'facture/:id', component: AnnexeComponent},
+ // {path: 'facture/:id', component: AnnexeComponent},
 
 
 ];

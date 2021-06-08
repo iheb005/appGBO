@@ -35,6 +35,17 @@ export class StructureService {
    return this.http.put(`${this.uri}/update/`+id,Update) ;
 
   }
+
+
+
+
+
+
+
+
+
+
+  
   
    }
 

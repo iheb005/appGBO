@@ -16,6 +16,10 @@ export class StructuresComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   id: any;
+  totalLength:any ;
+  page:number=1;
+  showpost:any =[] ;
+  nomStructure:any ;
 
 
   constructor(public structureservice: StructureService,
@@ -42,6 +46,9 @@ export class StructuresComponent implements OnInit {
     this.structureservice.getAllStructures().subscribe(data => {
         this.structureList = Object.assign([], data)
         //this.resetForm(form);
+        this.showpost=data ;
+        this.totalLength = data.length ;
+        //console.log(this.showpost);
         console.log(this.structureList);
       },
       error => {
@@ -148,6 +155,22 @@ export class StructuresComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  search()
+{
+ if (this.nomStructure=="")
+ {
+this.ngOnInit();
+ }else {
+   this.structureList=this.structureList.filter(res=>{
+     return res.nomStructure.toLocaleLowerCase().match(this.nomStructure.toLocaleLowerCase())
+
+
+   })
+ }
+
+}
+
 
 
 }

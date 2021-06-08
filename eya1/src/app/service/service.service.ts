@@ -58,7 +58,6 @@ return  this.http.post(`${this.baseUrl}/facture/save`, obj);
 upload(file: File): Observable<HttpEvent<any>> 
 {
   const formData: FormData = new FormData();
-   //formData.append('description',description);
   formData.append('file', file);
 
   const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {

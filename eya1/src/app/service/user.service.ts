@@ -14,7 +14,6 @@ export class UserService {
     throw new Error('Method not implemented.');
   }
     public uri = 'http://localhost:9521/utilisateur';
-     public url1='http://localhost:9521/utilisateur/save';
 
     constructor(private http : HttpClient) { }
 
