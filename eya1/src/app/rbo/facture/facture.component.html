@@ -62,7 +62,7 @@
                 <td><span>{{fac.raisonSocial}}</span></td>
                 <td><span>{{fac.numBonde}}</span></td>
                 <td><span>{{fac.numFact}}</span></td>
-                <td><span>{{fac.dateFact}}</span></td>
+                <td><span>{{fac.dateFact | date: 'shortDate'}}</span></td>
                 <td><span>{{fac.ttc}}</span></td>
                 <td><span>{{fac.structure}}</span></td>
                 <td><span>{{fac.etat}}</span></td>
@@ -200,10 +200,12 @@
             </div>
             <div class="form-group">
               <label for="dateFact">DateFacture</label>
-              <div class="input-group">
-                <input id="dateFact" name="dateFact" class="form-control"  required ngModel  #dateFact="ngModel" required >
-              </div>
-              <span class="error" *ngIf="dateFact.invalid && dateFact.touched" class="error">il faut le remplir</span>
+            
+              <input class="form-control"
+              placeholder="dd-mm-yyyy"
+              name="dateFact"
+              [(ngModel)]="dateFact"
+              ngbDatepicker #d="ngbDatepicker">
             </div>
             <div class="form-group">
               <label for="ttc">TTC</label>
@@ -272,9 +274,11 @@
                   </div>
                   <div class="form-group">
                     <label>DateFact</label>
-                    <div class="input-group">
-                      <input formControlName="dateFact" class="form-control">
-                    </div>
+                    <input class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    name="dateFact"
+                    formControlName="dateFact"
+                   ngbDatepicker #d="ngbDatepicker">
 
                   </div>
                   <div class="form-group">
@@ -360,9 +364,12 @@
                   </div>
                   <div class="form-group">
                     <label>DateFact</label>
-                    <div class="input-group">
-                      <input formControlName="dateFact" class="form-control">
-                    </div>
+                    
+                      <input class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    formControlName="dateFact"
+                   ngbDatepicker #d="ngbDatepicker">
+                 
 
                   </div>
                   <div class="form-group">

@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbDate, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 import {Router} from '@angular/router';
@@ -51,6 +51,7 @@ export class FactureComponent implements OnInit {
   totalLength:any ;
   page:number=1;
   raisonSocial:any;
+  dateFact:NgbDate;
   constructor(private factserv: ServiceService,
               private modalService: NgbModal,
               private fb: FormBuilder,
@@ -83,9 +84,13 @@ export class FactureComponent implements OnInit {
     this.router.navigate(['/facture', fac.id]);
     //console.log(fac.id)
   }
-
   /*************************/
   open(content) {
+    const today = new Date();
+    this.dateFact = new NgbDate(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate());
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -145,6 +150,10 @@ export class FactureComponent implements OnInit {
   }
 /**********post */
   onSubmit(form: NgForm) {
+    form.value.dateFact = new Date(
+      form.value.dateFact.year,
+      form.value.dateFact.month,
+      form.value.dateFact.day);
     this.factserv.addFact(form.value).subscribe(
       data => 
       {
@@ -170,15 +179,22 @@ export class FactureComponent implements OnInit {
       backdrop: 'static',
       size: 'lg'
     });
+    const selectedDay = new Date(facture.dateFact);
     this.editForm.patchValue({
-
-      raisonSocial: facture.raisonSocial,
+     /* id : facture.id,
+      dateFact : new NgbDate(selectedDay.getFullYear(),
+      selectedDay.getMonth() + 1,
+      selectedDay.getDate())*/
+    raisonSocial: facture.raisonSocial,
       numBonde: facture.numBonde,
       strcucture: facture.structure,
       ttc: facture.ttc,
-      datefact: facture.dateFact,
+      //datefact: facture.dateFact,
       etat: facture.etat,
       numFact: facture.numFact
+
+    });
+    this.editForm.patchValue({
 
     });
   }
@@ -202,13 +218,16 @@ openEdit1(targetModal, facture: Fact) {
     backdrop: 'static',
     size: 'lg'
   });
+  const selectedDay = new Date(facture.dateFact);
   this.editForm.patchValue({
-
+    dateFact : new NgbDate(selectedDay.getFullYear(),
+    selectedDay.getMonth() + 1,
+    selectedDay.getDate()),
     raisonSocial: facture.raisonSocial,
     numBonde: facture.numBonde,
     strcucture: facture.structure,
     ttc: facture.ttc,
-    datefact: facture.dateFact,
+   // datefact: facture.dateFact,
     etat: facture.etat,
     numFact: facture.numFact
 
