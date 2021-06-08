@@ -28,8 +28,9 @@ export class UsersComponent implements OnInit {
     active: '',
     dateCreation: ''
   };
-
-
+  nomPrenom:any ;
+  totalLength:any ;
+  page:number=1;
   constructor(public userservice: UserService,
               private modalService: NgbModal,
               private httpClient: HttpClient,
@@ -168,6 +169,22 @@ export class UsersComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  search()
+{
+ if (this.nomPrenom=="")
+ {
+this.ngOnInit();
+ }else {
+   this.userList=this.userList.filter(res=>{
+     return res.nomPrenom.toLocaleLowerCase().match(this.nomPrenom.toLocaleLowerCase())
+
+
+   })
+ }
+
+}
+
 
 
 }

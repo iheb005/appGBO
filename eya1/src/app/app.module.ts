@@ -29,6 +29,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import {NgxPaginationModule} from 'ngx-pagination'; 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 
 
@@ -67,6 +69,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatSelectModule,
     ToastNoAnimationModule.forRoot(),
     NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     ServiceService,

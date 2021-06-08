@@ -79,7 +79,7 @@
                     <tr *ngFor="let structure of structureList |paginate : { itemsPerPage:5, 
                       currentPage: page,
                       totalItems: totalLength 
-                    }; let index = index ">
+                    };let index = index ">
                       <th scope="row">{{ index+1 }}</th>
                       <td><span>{{structure.nomStructure}}</span></td>
                       <td><span>{{structure.etat}}</span>  

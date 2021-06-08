@@ -48,8 +48,9 @@ export class FactureComponent implements OnInit {
     numFact: ''
   };
   id: any;
-   
-  
+  totalLength:any ;
+  page:number=1;
+  raisonSocial:any;
   constructor(private factserv: ServiceService,
               private modalService: NgbModal,
               private fb: FormBuilder,
@@ -250,7 +251,20 @@ Edit1() {
         .startsWith(str.toLowerCase()));
     }
   }
+  search()
+{
+ if (this.raisonSocial=="")
+ {
+this.ngOnInit();
+ }else {
+   this.factures=this.factures.filter(res=>{
+     return res.raisonSocial.toLocaleLowerCase().match(this.raisonSocial.toLocaleLowerCase())
 
+
+   })
+ }
+
+}
 }
 
 
