@@ -1,4 +1,7 @@
 export class User {
+  static role(arg0: string, role: any) {
+    throw new Error('Method not implemented.');
+  }
         public id: number;
 
        public nomPrenom: string;

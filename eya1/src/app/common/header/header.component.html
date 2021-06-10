@@ -15,22 +15,43 @@
   </h2>
 
   <ul class="flex-container flex-end">
-    <li class="flex-item">
+   <!-- <li class="flex-item">
       <i class="fa fa-search" aria-hidden="true"></i>
-    </li>
+    </li>-->
     <li class="flex-item">
       <a  data-toggle="modal" (click)="open(content)"><i class="fa fa-question-circle" aria-hidden="true" ></i> </a>
     </li>
     <li class="flex-item">
       <i class="fa fa-bell" aria-hidden="true"> </i>
     </li>
-    <li class="flex-item">
+   <!-- <li class="flex-item">
       <i class="fa fa-user" aria-hidden="true"></i>
-    </li>
+    </li>-->
 
 
   </ul>
+
 </header>
+<ng-template #content let-modal class="text-center">
+  <div class="modal-header">
+    <h4 class="modal-title"><strong></strong> </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h2  class="text-center"   > <strong > En cas de problème <br>
+        n'hésitez pas à nous <br>
+        contacter.</strong> </h2>
+
+   <!--- <div class="border text-center">
+      <button data-dismiss="modal" class="btn btn-danger">Oui, supprimez!</button>
+    </div>-->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
+  </div>
+</ng-template>
 <div class="body">
   <nav class="side-bar">
     <div class="user-p">
@@ -98,20 +119,8 @@
   </nav>
 
 </div>
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>Hello, World!</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-  </div>
-</ng-template>
+
+
 
 </body>
 </html>

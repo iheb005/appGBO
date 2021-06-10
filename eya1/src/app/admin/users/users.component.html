@@ -162,19 +162,19 @@
                   <span class="error" *ngIf="telephone && telephone.touched" class="error">il faut le remplir</span>
                 </div>
                 <div class="form-group">
-                  <label for="type_structure">TypeStructure</label>
-                  <div class="input-group">
-                    <input id="type_structure"  class="form-control"  name="type_structure"  ngModel required  #type_structure="ngModel"    >
-                  </div>
-                  <span class="error" *ngIf="type_structure.invalid  && type_structure.touched" class="error">Il faut remplir</span>
-                </div>
-                <div class="form-group">
                   <label for="role">Role</label>
                   <div class="input-group">
                     <input id="role"  name="role" class="form-control" ngModel  required #role="ngModel"   >
                   </div>
                   <span class="error" *ngIf="role.invalid && role.touched" class="error">Il faut remplir</span>
                 </div>
+                <div class="form-group" >
+                  <label for="type_structure">TypeStructure</label>
+                  <div class="input-group">
+                    <input id="type_structure"  class="form-control"  name="type_structure"  ngModel required  #type_structure="ngModel" >
+                  </div>
+                </div>
+   
 
                 <div class="form-group">
                   <label for="etat">Etat</label>

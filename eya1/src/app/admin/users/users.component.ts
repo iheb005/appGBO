@@ -54,8 +54,11 @@ export class UsersComponent implements OnInit {
 
     });
   }
-
-
+  
+  getRole(user:User ) {
+    
+    return    document.getElementById('rolee').setAttribute('value', user.role);
+  }
   getAllUsers() {
     this.userservice.getAllUsers().subscribe(data => {
         this.userList = Object.assign([], data)
@@ -188,3 +191,7 @@ this.ngOnInit();
 
 
 }
+function setAttribute(arg0: string, role: any) {
+  throw new Error('Function not implemented.');
+}
+
