@@ -16,15 +16,14 @@ public class FactureController {
     FactureService factureService;
     FactureRepository factureRepository;
 
-  /*  public FactureController(FactureService factureService) {
+    public FactureController(FactureService factureService) {
         this.factureService = factureService;
-    }*/
-
+    }
     //The function receives a GET request, processes it and gives back a list of Structure as a response.
-    /*@GetMapping({"/factures"})
+    @GetMapping({"/factures"})
     public List<Facture> getAllFactures() {
         return factureService.getFacture();
-    }*/
+    }
 
     /*GETFACTURE**/
     @GetMapping({"/facture/{factureId}"})

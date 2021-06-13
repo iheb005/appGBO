@@ -22,7 +22,7 @@
       <a  data-toggle="modal" (click)="open(content)"><i class="fa fa-question-circle" aria-hidden="true" ></i> </a>
     </li>
     <li class="flex-item">
-      <i class="fa fa-bell" aria-hidden="true"> </i>
+      <i class="fa fa-bell"  aria-hidden="true"> </i>
     </li>
    <!-- <li class="flex-item">
       <i class="fa fa-user" aria-hidden="true"></i>
@@ -52,7 +52,19 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
   </div>
 </ng-template>
-<div class="body">
+<div class="body" >
+  <div  role="alert" style="position: absolute; z-index: 9999999; margin-left: 80%"
+        [style.display]="notifications != null && notifications.length > 0 ? 'block' :'none' " >
+    <div class="toast-header">
+      <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+           focusable="false" role="img">
+        <rect fill="#007aff" width="100%" height="100%" /></svg>
+      <strong class="mr-auto">Consultez vos notifications <a [routerLink]="" > <i class="fa fa-eye"></i></a></strong>
+<!--      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
+<!--        <span aria-hidden="true">&times;</span>-->
+<!--      </button>-->
+    </div>
+  </div>
   <nav class="side-bar">
     <div class="user-p">
       <img
@@ -117,9 +129,11 @@
       </li>
     </ul>
   </nav>
-
 </div>
 
+<!--<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" >-->
+
+<!--</div>-->
 
 
 </body>

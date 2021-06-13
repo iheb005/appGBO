@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {JwtService} from "../../service/jwt.service";
-import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-header',
@@ -12,17 +13,34 @@ import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-
 })
 export class HeaderComponent implements OnInit {
 
+  private notifications: any;
+
+  data: any;
+  interval: any;
+
   constructor(private auth: AuthService,
               private router: Router,
               private jwtService: JwtService,
               config: NgbModalConfig,
-               private modalService: NgbModal) 
-               {
-                config.backdrop = 'static';
-                config.keyboard = false;
+              private modalService: NgbModal,
+              private notifService: NotificationService) {
+    config.backdrop = 'static';
+    config.keyboard = false;
   }
 
   ngOnInit(): void {
+    this.refreshData();
+    this.interval = setInterval(() => {
+      this.refreshData();
+    }, 10000);
+    // this.findMyNotifications();
+  }
+
+  refreshData() {
+    this.notifService.findNotif().subscribe(data => {
+      console.log(data)
+      this.notifications = data;
+    })
   }
 
   logout() {
@@ -36,10 +54,11 @@ export class HeaderComponent implements OnInit {
   }
 
 
- /* open(content) {
-    this.modalService.open(content);
-  }*/
+  /* open(content) {
+     this.modalService.open(content);
+   }*/
   closeResult: string;
+
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -47,6 +66,7 @@ export class HeaderComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -55,6 +75,13 @@ export class HeaderComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  
-}
+  }
+
+  findMyNotifications() {
+    console.log("load notif")
+    this.notifService.findNotif().subscribe(data => {
+      console.log(data)
+      this.notifications = data;
+    })
+  }
 }

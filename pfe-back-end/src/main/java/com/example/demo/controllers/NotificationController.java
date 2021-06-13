@@ -1,27 +1,27 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.impl.NotificationDispatcher;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import com.example.demo.entities.Notification;
+import com.example.demo.services.impl.NotificationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-//@Controller
+import java.util.List;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/notification")
 public class NotificationController {
 
-    private final NotificationDispatcher dispatcher;
 
-    @Autowired
-    public NotificationController(NotificationDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
+    private final NotificationService notificationService;
+
+    @PostMapping("/save")
+    public void save(@RequestBody Notification notification) {
+        notificationService.add(notification);
     }
 
-    @MessageMapping("/start")
-    public void start(StompHeaderAccessor stompHeaderAccessor) {
-        dispatcher.add(stompHeaderAccessor.getSessionId());
-    }
-
-    @MessageMapping("/stop")
-    public void stop(StompHeaderAccessor stompHeaderAccessor) {
-        dispatcher.remove(stompHeaderAccessor.getSessionId());
+    @GetMapping("/")
+    public List<Notification> findAll() {
+        return notificationService.findAll();
     }
 }

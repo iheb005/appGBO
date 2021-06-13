@@ -24,6 +24,7 @@ public class Utilisateur {
     private String password;
     //private String typeStructure;
     private String telephone;
+    private String structure;
     private boolean active;
     @CreationTimestamp
     private LocalDateTime dateCreation;
