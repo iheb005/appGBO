@@ -45,7 +45,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateurFromDb.setEmail(utilisateur.getEmail());
         utilisateurFromDb.setRole(utilisateur.getRole());
         utilisateurFromDb.setTelephone(utilisateur.getTelephone());
-        utilisateurFromDb.setStructures(utilisateur.getStructures());
+        //utilisateurFromDb.setStructures(utilisateur.getStructures());
         repository.save(utilisateurFromDb);
     }
 

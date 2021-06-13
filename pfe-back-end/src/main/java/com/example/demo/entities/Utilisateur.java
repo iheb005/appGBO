@@ -5,16 +5,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
+@Inheritance( strategy = InheritanceType.JOINED )
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Utilisateur {
 
@@ -33,6 +31,7 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Structure> structures = new ArrayList<>();
+
 
 
 }
