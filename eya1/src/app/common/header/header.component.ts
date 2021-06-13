@@ -13,7 +13,7 @@ import {NotificationService} from "../../service/notification.service";
 })
 export class HeaderComponent implements OnInit {
 
-  private notifications: any;
+  notifications: any;
 
   data: any;
   interval: any;
