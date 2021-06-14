@@ -21,8 +21,7 @@ public class Facture {
     private String numFact;
     private String ttc;
     private String etat;
-    private String structure;
-    /*@CreationTimestamp*/
+    @CreationTimestamp
     private LocalDateTime dateFact;
 
 

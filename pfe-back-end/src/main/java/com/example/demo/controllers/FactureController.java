@@ -19,6 +19,7 @@ public class FactureController {
     public FactureController(FactureService factureService) {
         this.factureService = factureService;
     }
+
     //The function receives a GET request, processes it and gives back a list of Structure as a response.
     @GetMapping({"/factures"})
     public List<Facture> getAllFactures() {
@@ -33,7 +34,7 @@ public class FactureController {
 
     //The function receives a POST request, processes it, creates a new DAOStructure and saves it to the database, and returns a resource link to the created todo.    @PostMapping
     @RequestMapping(value = "/facture/save", method = RequestMethod.POST)
-    public Facture créerFacture(@RequestBody Facture facture) {
+    public Facture saveFacture(@RequestBody Facture facture) {
         return factureService.insert(facture);
     }
 

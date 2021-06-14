@@ -47,6 +47,7 @@ public class FicheAnnexeController {
 //                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getNom() + "\"")
 //                .body(fileDB.getData());
 //    }
+
    @GetMapping("/files")
 public ResponseEntity<List<ResponseFiche>> getListFiles() {
     List<ResponseFiche> files = ficheAnnexeService.getAllFiles().map(dbFile -> {
