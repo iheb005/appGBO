@@ -1,0 +1,72 @@
+<!--<div class="container mt-5" style="display: flex; justify-content: center">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Saisir votre email et mot de passe</h5>
+
+      <div class="alert alert-danger" *ngIf="err==1">
+        <strong>
+          login
+          ou
+          mot
+          de
+          passe
+          erronés..
+        </strong>
+      </div>
+      <form>
+        <div class="form-group">
+          <label>Email :</label>
+          <input type="text" name="username"
+                 class="form-control"
+                 [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe :</label>
+          <input type="password" name="password"
+                 [(ngModel)]="user.password" class="form-control">
+        </div>
+        <div class="row justify-content-md-center">
+          <button type="button" (click)="onLoggedin()"
+                  class="btn btn-success">Connexion
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+</div>-->
+<div class="bg-img">
+  <div class="content">
+    <header>Login Form</header>
+    
+    <div class="alert alert-danger" *ngIf="err==1">
+      <strong>
+        login ou mot de passe erronés..
+      </strong>
+    </div>
+    <form action="#">
+      <div class="field">
+        <span class="fa fa-user"></span>
+        <input type="text" required placeholder="Email or Phone"  name="username" class="form-control" [(ngModel)]="user.email">
+      </div>
+      <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input type="password" class="pass-key" required placeholder="Password" name="password" [(ngModel)]="user.password" class="form-control">
+        <span class="show">SHOW</span>
+      </div>
+      <div class="pass">
+        <a href="/home1">Forgot Password?</a>
+      </div>
+      <div class="field">
+        <input type="submit" value="LOGIN" (click)="onLoggedin()">
+      </div>
+      <div >
+        <a href="/home1">HOME</a>
+      </div>
+    </form>
+
+
+  </div>
+</div>
