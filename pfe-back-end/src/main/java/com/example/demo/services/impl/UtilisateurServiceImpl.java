@@ -80,10 +80,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }*/
 
+
     @PostConstruct
     @Transactional
    public void initUser() {
-       /* Utilisateur u = new Utilisateur();
+        /*Utilisateur u = new Utilisateur();
         u.setNomPrenom("Foulen ben foulen");
         u.setEmail("admin");
         u.setPassword("admin");
@@ -108,10 +109,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 
     @Override
-    public Utilisateur activer(Long id ,Utilisateur utilisateur) {
+    public Utilisateur activer(Long id ) {
         Utilisateur utilisateurFromDb = repository.findById(id).get();
         System.out.println(utilisateurFromDb.toString());
-        utilisateurFromDb.setActive(utilisateur.isActive());
+        utilisateurFromDb.setActive(!utilisateurFromDb.isActive());
         return repository.save(utilisateurFromDb);
     }
 }

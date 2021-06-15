@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+
 @RestController
 @RequestMapping("/utilisateur")
 public class UtilisateurController
@@ -49,9 +50,9 @@ public class UtilisateurController
 
 
     @PutMapping ("/activer/{factureId}")
-    public Utilisateur activerUser(@PathVariable("factureId") Long UserId,@RequestBody Utilisateur utilisateur)
+    public Utilisateur activerUser(@PathVariable("factureId") Long UserId)
     {
-      service.activer(UserId,utilisateur);
+        service.activer(UserId);
         return service.getById(UserId);
     }
 

@@ -1,27 +1,53 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Facture;
+import com.example.demo.entities.Notification;
+import com.example.demo.entities.Utilisateur;
+import com.example.demo.services.FactureService;
+import com.example.demo.services.UtilisateurService;
 import com.example.demo.services.impl.NotificationDispatcher;
+import com.example.demo.services.impl.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
-//@Controller
+import java.util.*;
+
+@RestController
+@RequestMapping("/notification")
 public class NotificationController {
 
-    private final NotificationDispatcher dispatcher;
-
     @Autowired
-    public NotificationController(NotificationDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-    }
+    private  NotificationService notificationService;
+    @Autowired
+    private  FactureService factureService;
+    @Autowired
+    private UtilisateurService utilisateurService;
 
-    @MessageMapping("/start")
-    public void start(StompHeaderAccessor stompHeaderAccessor) {
-        dispatcher.add(stompHeaderAccessor.getSessionId());
-    }
+    @GetMapping("")
+    public List<Notification> getAllNotification() {
+        try {
 
-    @MessageMapping("/stop")
-    public void stop(StompHeaderAccessor stompHeaderAccessor) {
-        dispatcher.remove(stompHeaderAccessor.getSessionId());
+            return notificationService.findAll();
+        } catch (Exception e){
+            return new ArrayList<>();
+        }
+    }
+    @PostMapping("/save")
+    public Notification saveNotification(@RequestBody Map<String, Object> notification) {
+        Facture facture = factureService.getFactureById(Long.valueOf(
+                notification.get("idFacture").toString())
+        );
+        facture.setEtat("envoyé");
+        factureService.updateFacture(facture.getId(),facture);
+        Notification notification1 = new Notification();
+        notification1.setStructureName("");
+        notification1.setIdFacture(facture.getId());
+        notification1.setSeen(false);
+        return notificationService.add(notification1);
+
     }
 }

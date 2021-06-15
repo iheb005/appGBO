@@ -2,17 +2,20 @@ package com.example.demo.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.entities.Facture;
 import com.example.demo.entities.FicheAnnexe;
 import com.example.demo.repository.FactureRepository;
 
 import com.example.demo.services.FactureService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FactureServiceImpl implements FactureService {
 
+    @Autowired
     FactureRepository factureRepository;
 
     public FactureServiceImpl(FactureRepository factureRepository) {
@@ -31,6 +34,10 @@ public class FactureServiceImpl implements FactureService {
         return factureRepository.findById(id).get();
     }
 
+    public Facture getFactureById2() {
+        return factureRepository.findById((long) 7).get();
+    }
+
     @Override
     public Facture insert(Facture facture) {
         return factureRepository.save(facture);
@@ -47,11 +54,9 @@ public class FactureServiceImpl implements FactureService {
         factureFromDb.setTtc(facture.getTtc());
         factureFromDb.setRaisonSocial(facture.getRaisonSocial());
         factureFromDb.setEtat(facture.getEtat());
-
-
-
         factureRepository.save(factureFromDb);
     }
+
 
     @Override
     public void deleteFacture(Long factureId) {

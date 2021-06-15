@@ -20,6 +20,6 @@ public interface UtilisateurService {
     List<Utilisateur> getAll();
 
 
-    Utilisateur activer(Long id,Utilisateur utilisateur);
+    Utilisateur activer(Long id);
 
 }

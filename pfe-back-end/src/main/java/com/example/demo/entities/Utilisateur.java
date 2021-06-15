@@ -3,6 +3,8 @@ package com.example.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
@@ -24,7 +26,7 @@ public class Utilisateur {
     private String nomPrenom;
     private String email;
     private String password;
-    //private String typeStructure;
+    private String typeStructure;
     private String telephone;
     private boolean active;
     @CreationTimestamp
