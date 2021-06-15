@@ -17,6 +17,8 @@ import {StructuresComponent} from "./admin/structures/structures.component";
 import {RoleAdminGuard} from "./_herlpers/RoleAdminGuard";
 import {LandingComponent} from "./landing/landing.component";
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { FactureRsComponent } from './rs/facture-rs/facture-rs.component';
+import { RsAnnexeComponent } from './rs/rs-annexe/rs-annexe.component';
 
 
 const routes: Routes = [
@@ -87,8 +89,14 @@ const routes: Routes = [
       {
         path: 'home', // child route path
         component: HomeRsComponent, // child route component that the router renders
+      },{
+        path: 'facture', // child route path
+        component: FactureRsComponent, // child route component that the router renders
       },
-    
+      {
+        path: 'facture/:id', 
+        component:RsAnnexeComponent,
+      }
     ],
   },
   {path: 'unauthorized', component: UnauthorizedComponent},

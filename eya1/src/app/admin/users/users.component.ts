@@ -1,10 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
-import {User} from '../../model/user.model';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from "../../service/user.service";
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { User } from '../../model/user.model';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from "../../service/user.service";
+import { StructureService } from '../../service/structure.service'
 import { ToastrService } from 'ngx-toastr';
+import { Structure } from 'src/app/model/structure.modal';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class UsersComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   id: any;
+  structs: Structure[];
+  filtredStructs:Structure[] = [];
   myUser: any = {
     id: '',
     nomPrenom: '',
@@ -28,14 +32,16 @@ export class UsersComponent implements OnInit {
     active: '',
     dateCreation: ''
   };
-  nomPrenom:any ;
-  totalLength:any ;
-  page:number=1;
+  nomPrenom: any;
+  totalLength: any;
+  page: number = 1;
+  roleValue:string="";
   constructor(public userservice: UserService,
-              private modalService: NgbModal,
-              private httpClient: HttpClient,
-              private fb: FormBuilder,
-              private toastr: ToastrService) {
+    private modalService: NgbModal,
+    private httpClient: HttpClient,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private structureService: StructureService) {
   }
 
   ngOnInit(): void {
@@ -53,35 +59,42 @@ export class UsersComponent implements OnInit {
       date_creation: ['']
 
     });
+
+    this.structureService.getAllStructures().subscribe(data => {
+      console.log("struct service:");
+      this.structs = data.filter(x => x.etat == true);
+      this.filtredStructs = this.structs;
+
+    })
   }
-  
-  getRole(user:User ) {
-    
-    return    document.getElementById('rolee').setAttribute('value', user.role);
+
+  getRole(user: User) {
+
+    return document.getElementById('rolee').setAttribute('value', user.role);
   }
   getAllUsers() {
     this.userservice.getAllUsers().subscribe(data => {
-        this.userList = Object.assign([], data)
-        console.log(this.userList);
-      },
+      this.userList = Object.assign([], data)
+      console.log(this.userList);
+    },
       error => {
         console.log(error);
       });
   }
 
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
- onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
     this.userservice.addUser(form.value).subscribe(
       data => {
-            console.log(form.value)
-            this.toastr.success('avec succès!','utilisateur ajouté', );
+        console.log(form.value)
+        this.toastr.success('avec succès!', 'utilisateur ajouté',);
         this.userList = Object.assign([], data)
         this.resetForm(form);
         this.getAllUsers();
@@ -89,10 +102,10 @@ export class UsersComponent implements OnInit {
       error => {
         console.log(error);
       });
-      this.modalService.dismissAll();
+    this.modalService.dismissAll();
 
   }
- 
+
 
 
   resetForm(form) {
@@ -149,7 +162,7 @@ export class UsersComponent implements OnInit {
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
-        this.toastr.warning('avec succès!','utilisateur modifié', );
+        this.toastr.warning('avec succès!', 'utilisateur modifié',);
 
       });
   }
@@ -173,22 +186,35 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  search()
-{
- if (this.nomPrenom=="")
- {
-this.ngOnInit();
- }else {
-   this.userList=this.userList.filter(res=>{
-     return res.nomPrenom.toLocaleLowerCase().match(this.nomPrenom.toLocaleLowerCase())
+  search() {
+    if (this.nomPrenom == "") {
+      this.ngOnInit();
+    } else {
+      this.userList = this.userList.filter(res => {
+        return res.nomPrenom.toLocaleLowerCase().match(this.nomPrenom.toLocaleLowerCase())
 
 
-   })
- }
+      })
+    }
 
-}
+  }
 
+  structFilterChange($event){
 
+    this.filtredStructs = this.structs.filter(x=>x.nomStructure.includes($event.target.value));
+  }
+
+  roleChanged($event){
+    this.roleValue = $event.target.value;
+  }
+
+  stateToggler(id){
+    console.log("clicked "+id);
+    this.userservice.toggleState(id).subscribe(res=>{
+      this.getAllUsers();
+      console.log(res);
+    });
+  }
 
 }
 function setAttribute(arg0: string, role: any) {

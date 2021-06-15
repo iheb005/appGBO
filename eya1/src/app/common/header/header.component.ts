@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   data: any;
   interval: any;
-
+  dropdown:boolean = false;
   constructor(private auth: AuthService,
               private router: Router,
               private jwtService: JwtService,
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
               private notifService: NotificationService) {
     config.backdrop = 'static';
     config.keyboard = false;
+    this.dropdown=false;
   }
 
   ngOnInit(): void {
@@ -35,7 +36,9 @@ export class HeaderComponent implements OnInit {
     }, 10000);
     // this.findMyNotifications();
   }
-
+  toggledropdown(){
+    this.dropdown =!this.dropdown;
+  }
   refreshData() {
     this.notifService.findNotif().subscribe(data => {
       console.log(data)

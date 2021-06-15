@@ -30,6 +30,8 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FactureRsComponent } from './rs/facture-rs/facture-rs.component';
+import { RsAnnexeComponent } from './rs/rs-annexe/rs-annexe.component';
 
 
 
@@ -54,6 +56,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     UnauthorizedComponent,
     LandingComponent,
     HomeAdminComponent,
+    FactureRsComponent,
+    RsAnnexeComponent,
   ],
   imports: [
     BrowserModule,

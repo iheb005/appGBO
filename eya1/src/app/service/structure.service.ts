@@ -7,32 +7,31 @@ import { Structure } from '../model/structure.modal';
   providedIn: 'root'
 })
 export class StructureService {
-   public uri = 'http://localhost:9521';
+  public uri = 'http://localhost:9521';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAllStructures():Observable<any>{
+  getAllStructures(): Observable<any> {
     return this.http.get(`${this.uri}/all`);
   }
 
   //ajouter structure//
-  addStructure(st : Structure):Observable<any> {
+  addStructure(st: Structure): Observable<any> {
     const obj = {
 
       nomStructure: st.nomStructure,
-      etat:st.etat,
+      etat: st.etat,
 
     };
-     //console.log(obj);
- return  this.http.post(`${this.uri}/add`, obj);
+    //console.log(obj);
+    return this.http.post(`${this.uri}/add`, obj);
 
 
   }
 
-  put(id,Update):Observable<any>
-  {
+  put(id, Update): Observable<any> {
 
-   return this.http.put(`${this.uri}/update/`+id,Update) ;
+    return this.http.put(`${this.uri}/update/` + id, Update);
 
   }
 
@@ -45,9 +44,9 @@ export class StructureService {
 
 
 
-  
-  
-   }
+
+
+}
 
 
 

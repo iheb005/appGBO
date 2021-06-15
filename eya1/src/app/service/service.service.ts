@@ -16,7 +16,9 @@ export class ServiceService {
   getAll()
   {
    return this.http.get(this.baseUrl+'/factures');
-  }
+  
+}
+
 /************ */
 delete(id):Observable<any>{
 

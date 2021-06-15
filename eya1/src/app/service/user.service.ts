@@ -13,49 +13,53 @@ export class UserService {
   switchOnAll() {
     throw new Error('Method not implemented.');
   }
-    public uri = 'http://localhost:9521/utilisateur';
+  public uri = 'http://localhost:9521/utilisateur';
 
-    constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getAllUsers():Observable<any>{
-      return this.http.get(`${this.uri}/all`);
-    }
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.uri}/all`);
+  }
 
-    //methode ajouter//
+  //methode ajouter//
 
-  addUser(us : User):Observable<any> {
-      const obj = {
+  addUser(us: User): Observable<any> {
+    const obj = {
 
-        nomPrenom: us.nomPrenom,
-        email:us.email,
-        password:us.password,
-        telephone:us.telephone,
-        role:us.role,
-        type_structure:us.type_structure,
-        etat:us.active
+      nomPrenom: us.nomPrenom,
+      email: us.email,
+      password: us.password,
+      telephone: us.telephone,
+      role: us.role,
+      type_structure: us.type_structure,
+      etat: us.active
 
-      };
-       //console.log(obj);
-   return  this.http.post(`${this.uri}/save`, obj);
-    }
+    };
+    //console.log(obj);
+    return this.http.post(`${this.uri}/save`, obj);
+  }
 
 
-    
- put(id,Update):Observable<any>
- {
 
-  return this.http.put(`${this.uri}/update/`+id,Update) ;
+  put(id, Update): Observable<any> {
 
-   }
-
-   put2(id,Update):Observable<any>
-   {
-
-    return this.http.put(`${this.uri}/change/`+id,Update) ;
-
-     }
+    return this.http.put(`${this.uri}/update/` + id, Update);
 
   }
+
+  put2(id, Update): Observable<any> {
+
+    return this.http.put(`${this.uri}/change/` + id, Update);
+
+  }
+
+  toggleState(id): Observable<any> {
+
+    return this.http.put(`${this.uri}/activer/` + id,{});
+
+  }
+
+}
 
 
 

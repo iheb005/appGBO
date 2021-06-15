@@ -1,0 +1,379 @@
+<app-header></app-header>
+
+      <div class="container">
+          <div class="table-wrapper">
+            <div class="table-title">
+              <div class="row">
+                  <h2>Gestion <b>Des Factures</b></h2>
+              </div>
+            </div>
+            <nav class="navbar">
+              <input class="form-control" type="text" name="raisonSocial" [(ngModel)]="raisonSocial" (ngModelChange)="search()" placeholder="Entrer raison Social">
+            </nav>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+              <tr>
+                <th> #</th>
+                <th>RaisonSociale</th>
+                <th> NumBonCommande</th>
+                <th> NumFacture</th>
+                <th>DateFacture</th>
+                <th>TTC</th>
+                <th>Structure</th>
+                <th>Etat</th>
+                <th>Annexe</th>
+                <th>Action</th>
+
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let fac of factures  |paginate : { itemsPerPage:5,
+                currentPage: page,
+                totalItems: totalLength  }
+                ;let index = index ">
+                <th scope="row">{{ index+1 }}</th>
+                <td><span>{{fac.raisonSocial}}</span></td>
+                <td><span>{{fac.numBonde}}</span></td>
+                <td><span>{{fac.numFact}}</span></td>
+                <td><span>{{fac.dateFact | date: 'shortDate'}}</span></td>
+                <td><span>{{fac.ttc}}</span></td>
+                <td><span>{{fac.structure}}</span></td>
+                <td><span>{{fac.etat}}</span></td>
+                <td>
+                  <button [routerLink]="['/rs/facture',fac.id]"> <span>Consulter</span></button>
+                </td>
+                <td>
+                  <!--edit-->
+                  <a class="edit" data-toggle="modal" (click)="openEdit(contentEdit, fac)"><i class="material-icons"data-toggle="tooltip"title="Edit">
+                    &#xE254; </i></a>
+                  <!--delete--->
+                  <a class="delete" data-toggle="modal" (click)="openDelete(contentDelete, fac)"><i
+                    class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                  <!--details--->
+                  <a class="details" data-toggle="modal" (click)="openEdit1(contentEdit1, fac)"><i
+                    class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i> </a>
+                       <!--Imprimer--->
+                  <a class="" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
+                  <a class="" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
+                </td>
+
+              </tr>
+
+              </tbody>
+            </table>
+            <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+
+          </div>
+
+          <!--ajouter facture-
+          <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Nouvelle Facture</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="modal-body">
+
+               <!--<div class="form-group">
+                    <label>raisonSocial</label>
+                    <select class="form-control">
+                      <option>
+                        <input class="form-control" type="text" (change)="filterRaisons($event)" placeholder="Filter">
+                      </option>
+                      <option [ngValue]="null" disabled>Choisir raison sociale</option>
+                      <option *ngFor="let raison of raisonsSociaux" [ngValue]="raison.num">{{raison.num}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>NumBondeCommande</label>
+                    <select class="form-control">
+                      <option>
+                        <input class="form-control" type="text" (change)="filterBon($event)" placeholder="Filter">
+                      </option>
+                      <option [ngValue]="null" disabled>Choisir bon de commande </option>
+                      <option *ngFor="let bon of bondecommande" [ngValue]="bon.num">{{bon.num}}</option>
+                    </select>
+                  </div>--
+                  <div class="form-group">
+                    <label>NumFact</label>
+                    <input type="text" class="form-control" required [(ngModel)]="myFact.numFact" id="numFact"
+                           name="numFact" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="form-group">
+                    <label>dateFact</label>
+                    <input type="text" class="form-control" required [(ngModel)]="myFact.dateFact" id=" dateFact"
+                           name=" dateFact" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="form-group">
+                    <label>TTC</label>
+                    <input type="text" class="form-control" required [(ngModel)]="myFact.ttc" id="tcc" name="ttc" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="form-group">
+                    <label>Structure</label>
+                    <input type="text" class="form-control" required [(ngModel)]="myFact.structure" id="structure"
+                           name="structure" [ngModelOptions]="{standalone: true}">
+                  </div>
+
+                  <div class="form-group">
+                    <label>etat</label>
+
+                    <input type="text" class="form-control" required [(ngModel)]="myFact.etat" id="etat" [ngModelOptions]="{standalone: true}" >
+                  </div>
+
+                  <div class="border text-center">
+                    <button type="submit" class="btn btn-success" data-dismiss="modal" (click)="postFacture()"> add
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Fermer</button>
+            </div>
+          </ng-template>-->
+
+
+
+      <!-- Ajouter Facture-->
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Nouvelle Facture </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+            <div class="form-group">
+              <label for="raisonSocial">RaisonSocial</label>
+              <div class="input-group">
+                <input id="raisonSocial" name="raisonSocial" class="form-control" required #raisonSocial="ngModel" ngModel  required>
+              </div>
+              <span  class="error" *ngIf="raisonSocial.invalid && raisonSocial.touched" class="error">Il faut  le remplir</span>
+            </div>
+
+            <div class="form-group">
+              <label for="numBonde">NumBondeCommande</label>
+              <div class="input-group">
+                <input id="numBonde" name="numBonde"  class="form-control"   ngModel   #numBonde="ngModel"  required>
+              </div>
+              <span  class="error" *ngIf="numBonde.invalid && numBonde.touched" class="error">Il faut  le remplir</span>
+            </div>
+            <div class="form-group">
+              <label for="numFact">NumFacture</label>
+              <div class="input-group">
+                <input id="numFact" name="numFact"  class="form-control"   ngModel   #numFact="ngModel"  required minlength="6">
+
+              </div>
+              <span  class="error" *ngIf="numFact.invalid   && numFact.touched" class="error">Il faut  le remplir</span>
+            </div>
+            <div class="form-group">
+              <label for="dateFact">DateFacture</label>
+
+              <input class="form-control"
+              placeholder="dd-mm-yyyy"
+              name="dateFact"
+              [(ngModel)]="dateFact"
+              ngbDatepicker #d="ngbDatepicker">
+            </div>
+            <div class="form-group">
+              <label for="ttc">TTC</label>
+              <div class="input-group">
+                <input id="ttc"  class="form-control"  name="ttc"  ngModel required  #ttc="ngModel"    >
+              </div>
+              <span class="error" *ngIf="ttc.invalid  && ttc.touched" class="error">Il faut remplir</span>
+            </div>
+            <div class="form-group">
+              <label for="structure">Structure</label>
+              <div class="input-group">
+                <input id="structure"  name="structure" class="form-control" ngModel  required #structure="ngModel"   >
+              </div>
+              <span class="error" *ngIf="structure.invalid && structure.touched" class="error">Il faut remplir</span>
+            </div>
+
+            <div class="form-group">
+              <label for="etat">Etat</label>
+              <div class="input-group">
+                <input id="etat"  name="etat"    #etat="ngModel" ngModel class="form-control" required >
+              </div>
+              <span  class="error" *ngIf="etat.invalid && etat.touched" class="error">Il faut  le remplir</span>
+            </div>
+            <div class="border text-center">
+              <button data-dismiss="modal" class="btn btn-info">Ajouter</button>
+            </div>
+          </form>
+        </div>
+
+
+        <div class="modal-footer">
+          <input type="button" class="btn btn-outline-dark" data-dismiss="modal"  (click)="modal.close('Save click')"value="Fermer">
+        </div>
+
+      </ng-template>
+
+
+      <!-- Détails facture-->
+          <ng-template #contentEdit1 let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title2">Détaille Facture</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editForm" novalidate>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>RaisonSociale</label>
+                    <div class="input-group">
+                      <input formControlName="raisonSocial" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>NumBande</label>
+                    <div class="input-group">
+                      <input formControlName="numBonde" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>NumFact</label>
+                    <div class="input-group">
+                      <input formControlName="numFact" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>DateFact</label>
+                    <input class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    name="dateFact"
+                    formControlName="dateFact"
+                   ngbDatepicker #d="ngbDatepicker">
+
+                  </div>
+                  <div class="form-group">
+                    <label>TTC</label>
+                    <div class="input-group">
+                      <input formControlName="ttc" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Structure</label>
+                    <div class="input-group">
+                      <input formControlName="structure" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Etat</label>
+                    <div class="input-group">
+                      <input formControlName="etat" class="form-control">
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" data-dismiss="modal" (click)=" Edit()">Modifier</button>
+              <button data-dismiss="modal" class="btn btn-danger" (click)="deleteFacture()">Supprimer</button>
+              <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Fermer</button>
+            </div>
+          </ng-template>
+
+
+          <!---supprimer facture-->
+          <ng-template #contentDelete let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">Confirmation de la suppression</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2>Êtes-vous sûr de vouloir supprimer cette facture.</h2>
+
+              <div class="border text-center">
+                <button data-dismiss="modal" class="btn btn-danger" (click)="deleteFacture()">Oui, supprimez!</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
+            </div>
+          </ng-template>
+
+
+          <!----modifier facture -->
+          <ng-template #contentEdit let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title2">Modifier Facture</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editForm" novalidate>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>RaisonSociale</label>
+                    <div class="input-group">
+                      <input formControlName="raisonSocial" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>NumBande</label>
+                    <div class="input-group">
+                      <input formControlName="numBonde" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>NumFact</label>
+                    <div class="input-group">
+                      <input formControlName="numFact" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>DateFact</label>
+
+                      <input class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    formControlName="dateFact"
+                   ngbDatepicker #d="ngbDatepicker">
+
+
+                  </div>
+                  <div class="form-group">
+                    <label>TTC</label>
+                    <div class="input-group">
+                      <input formControlName="ttc" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Structure</label>
+                    <div class="input-group">
+                      <input formControlName="structure" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Etat</label>
+                    <div class="input-group">
+                      <input formControlName="etat" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" data-dismiss="modal" (click)=" Edit()">Modifier</button>
+              <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Fermer</button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
