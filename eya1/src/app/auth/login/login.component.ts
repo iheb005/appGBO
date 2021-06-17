@@ -12,7 +12,7 @@ import {JwtService} from "../../service/jwt.service";
 export class LoginComponent implements OnInit {
   err: number = 0;
   user = new User();
-
+  password:any ;
   constructor(private auth: AuthService,
               private router: Router,
               private jwtService: JwtService) {

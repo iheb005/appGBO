@@ -39,7 +39,7 @@
 </div>-->
 <div class="bg-img">
   <div class="content">
-    <header>Login Form</header>
+    <header></header>
     
     <div class="alert alert-danger" *ngIf="err==1">
       <strong>
@@ -49,21 +49,22 @@
     <form action="#">
       <div class="field">
         <span class="fa fa-user"></span>
-        <input type="text" required placeholder="Email or Phone"  name="username" class="form-control" [(ngModel)]="user.email">
+        <input type="text" required placeholder="Email "  name="username" class="form-control" [(ngModel)]="user.email">
       </div>
       <div class="field space">
         <span class="fa fa-lock"></span>
-        <input type="password" class="pass-key" required placeholder="Password" name="password" [(ngModel)]="user.password" class="form-control">
-        <span class="show">SHOW</span>
+        <input type="password" class="pass-key" required="required" placeholder="Mot de passe" name="password" [(ngModel)]="user.password" class="form-control">
+       <!--- <span class="show">SHOW</span>-->
+      <span  class="error" *ngIf="password.invalid && password.touched" class="error">Il faut  le remplir</span>
       </div>
       <div class="pass">
-        <a href="/home1">Forgot Password?</a>
+        <a href="/home1">Mot de passe oublié?</a>
       </div>
       <div class="field">
-        <input type="submit" value="LOGIN" (click)="onLoggedin()">
+        <input type="submit" value="connexion" (click)="onLoggedin()">
       </div>
       <div >
-        <a href="/home1">HOME</a>
+        <a href="/home1">Accueil</a>
       </div>
     </form>
 
