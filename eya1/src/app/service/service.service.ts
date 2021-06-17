@@ -47,7 +47,7 @@ addFact(f : Fact):Observable<any> {
       numBonde:f.numBonde,
       dateFact: f.dateFact,
       ttc: f.ttc,
-      structure: f.structure,
+      Structure: f.structure,
       etat: f.etat,
       numFact: f.numFact
   };

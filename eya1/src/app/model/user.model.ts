@@ -9,7 +9,7 @@ export class User {
        public password:string;
        public telephone: string;
        public role: string;
-       public type_structure: string;
+       public typeStructure: string;
        public active:string;
        public dateCreation: string;
 

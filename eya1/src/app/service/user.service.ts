@@ -31,7 +31,7 @@ export class UserService {
       password: us.password,
       telephone: us.telephone,
       role: us.role,
-      type_structure: us.type_structure,
+      typeStructure: us.typeStructure,
       etat: us.active
 
     };

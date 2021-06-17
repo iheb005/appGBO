@@ -1,11 +1,16 @@
 .container{
 
-	margin-top: -620px;
+	margin-top:  -685px;
    margin-right: 70px;
    margin-left: 235px;
 
 
   }
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
   .ngx-pagination {
 	padding-left: 0px !important;
   }
@@ -43,10 +48,11 @@
 	  padding-bottom: 15px;
 	  background: #127b8e;
 	  color: #fff;
-	  padding: 16px 30px;
-	  min-width: 100%;
+	  padding: 36px 28px;
+	  	  min-width: 100%;
 	  margin: -20px -25px 10px;
 	  border-radius: 3px 3px 0 0;
+	  width: 100%;
   }
   .table-title h2 {
 	  margin: 5px 0 0;

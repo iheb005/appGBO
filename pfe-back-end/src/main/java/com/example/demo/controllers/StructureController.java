@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Facture;
 import com.example.demo.entities.Structure;
+import com.example.demo.entities.Utilisateur;
 import com.example.demo.services.StructureService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +35,13 @@ public class StructureController {
     public Structure updateStructure(@PathVariable("StructureId") Long StructureId, @RequestBody Structure structure) {
         service.updateStructure(StructureId,structure);
         return   service.getStructureById(StructureId);
+    }
+
+
+    @PutMapping("/activer/{StructureId}")
+    public Structure activerUser(@PathVariable("StructureId") Long StructureId)
+    {
+        service.activerStructure(StructureId);
+        return service.getStructureById(StructureId);
     }
 }

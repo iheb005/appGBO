@@ -1,45 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
 import {ModalDismissReasons, NgbDate, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
-
 import {Router} from '@angular/router';
 import {ServiceService} from 'src/app/service/service.service';
 import {Fact} from 'src/app/model/Facture';
-import {FournisseurService} from '../../service/fournisseur.service';
+//import {FournisseurService} from '../../service/fournisseur.service';
 import {ToastrService} from 'ngx-toastr';
 import {NotifModel} from "../../model/NotifModel";
 import {NotificationService} from "../../service/notification.service";
 import {StructureService} from "../../service/structure.service";
-
-
+import { Structure } from 'src/app/model/structure.modal';
+import { forkJoin } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Fournisseur } from 'src/app/model/Fournisseur';
+import { Bon } from 'src/app/model/bon';
 @Component({
   selector: 'app-facture',
   templateUrl: './facture.component.html',
   styleUrls: ['./facture.component.css']
 })
 export class FactureComponent implements OnInit {
-
   deleteId: any;
   editForm: FormGroup;
   factures: any = [];
   closeResult: string;
   myContition = false;
-
   structures: any;
-  raisonsSociaux: any = [];
-  bondecommande: any = [];
-  /*{
-    id: 1,
-    num: 'S5FD'
-  },
-  {
-    id: 3,
-    num: 'K6FD'
-  }
-];*/
-
-
   myFact: any = {
     id: '',
     numFournisseur: '',
@@ -56,22 +42,29 @@ export class FactureComponent implements OnInit {
   page: number = 1;
   raisonSocial: any;
   dateFact: NgbDate;
+  structs: Structure[];
+  filtredStructs:Structure[] = [];
 
+  filtredFournisseur:Fournisseur[]=[];
+  fournisseur:Fournisseur[] ;
+  resData:any ;
+  bon:Bon[];
   constructor(private factserv: ServiceService,
               private modalService: NgbModal,
               private fb: FormBuilder,
               private router: Router,
-              private fournisseurService: FournisseurService,
+             // private fournisseurService: FournisseurService,
               private toastr: ToastrService,
               private structureService: StructureService,
-              private notifService: NotificationService) {
+              private notifService: NotificationService,
+              private http: HttpClient
+              ) {
   }
 
   ngOnInit(): void {
-    this.fournisseurService.getRaisonsSociaux().subscribe(data => {
-      this.raisonsSociaux = data;
-    });
+   
     this.getFacture();
+    //this.getData ();
     this.editForm = this.fb.group({
       raisonSocial: [''],
       numBonde: [''],
@@ -83,17 +76,56 @@ export class FactureComponent implements OnInit {
 
 
     });
+    /*this.getData()(data => {
+      console.log("service:");
+      this.fournisseur = data.filter();
+      this.filtredFournisseur= this.fournisseur;
+
+    })*/
+    this.structureService.getAllStructures().subscribe(data => {
+      console.log("struct service:");
+      this.structs = data.filter(x => x.etat == true);
+      this.filtredStructs = this.structs;
+
+    })
     setTimeout(() => {
       this.structures = this.getStructures()
     }, 5000)
-    console.log("struc ", this.structures)
   }
+  /**************** */
+
+getData ()
+{
+  forkJoin([
+          this.http.get<any>('http://localhost:3000/fournisseurs'), 
+          this.http.get<any>('http://localhost:5000/cmdefrs'),
+        ]).subscribe(([response1, response2]) => {
+          
+          this.resData = [response1, response2];
+          this.fournisseur= response2;
+          this.bon = response2;
+          console.log();
+        }
+        )
+     
+}
+FournisseurFilterChange($event){
+
+  this.filtredFournisseur= this.fournisseur.filter(x=>x.ABTAX.includes($event.target.value));
+}
 
 
+
+ /**************Structure*********** */
   getStructures() {
     this.structureService.getAllStructures().subscribe(data => {
       return data;
     });
+      
+  }
+  structFilterChange($event){
+
+    this.filtredStructs = this.structs.filter(x=>x.nomStructure.includes($event.target.value));
   }
 
   /*******************onselect******/
@@ -277,17 +309,18 @@ export class FactureComponent implements OnInit {
     }
   }
 
-  filterRaisons(str: string) {
-    if (typeof str === 'string') {
-      this.raisonsSociaux = this.raisonsSociaux.filter(a => a.toLowerCase()
-        .startsWith(str.toLowerCase()));
-    }
-  }
-
-  filterBon(str: string) {
-    if (typeof str === 'string') {
-      this.bondecommande = this.bondecommande.filter(a => a.toLowerCase()
-        .startsWith(str.toLowerCase()));
+  saveNotification(id: number, structure: string) {
+    let notifModel = new NotifModel();
+    let element = new NotifModel();
+    notifModel.idFacture = id;
+    notifModel.structureName = structure;
+    console.log('model ', notifModel)
+    this.notifService.saveNotif(notifModel).subscribe(data => console.log(data));
+    if (localStorage.getItem("role") == 'ROLE_RS') {
+      let notifications: any
+      this.notifService.findNotif().subscribe(data => notifications = data);
+      element = notifications.find(element => element.sendTo == "ROLE_RS");
+      // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
     }
   }
 
@@ -304,20 +337,9 @@ export class FactureComponent implements OnInit {
 
   }
 
-  saveNotification(id: number, structure: string) {
-    let notifModel = new NotifModel();
-    let element = new NotifModel();
-    notifModel.idFacture = id;
-    notifModel.structureName = structure;
-    console.log('model ', notifModel)
-    this.notifService.saveNotif(notifModel).subscribe(data => console.log(data));
-    if (localStorage.getItem("role") == 'ROLE_RS') {
-      let notifications: any
-      this.notifService.findNotif().subscribe(data => notifications = data);
-      element = notifications.find(element => element.sendTo == "ROLE_RS");
-      // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
-    }
-  }
+
+  
+
 }
 
 

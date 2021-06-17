@@ -34,6 +34,13 @@ export class StructureService {
     return this.http.put(`${this.uri}/update/` + id, Update);
 
   }
+  
+  toggleState(id): Observable<any> {
+
+    return this.http.put(`${this.uri}/activer/` + id,{});
+
+  }
+
 
 
 

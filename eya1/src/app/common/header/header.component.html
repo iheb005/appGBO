@@ -41,9 +41,9 @@ z-index: 3;">
           <h4></h4><strong> List des notifications</strong> 
           <ul>
             <li style="margin:2px 0px;width: 100%;background-color: #23245b;padding: 5px 15px;font-size: 11px;" 
-            *ngFor="let notification of notifications">La facture {{ notification.idFacture }} à été modifié 
+            *ngFor="let notification of notifications">La facture {{ notification.idFacture }} à été vu
             <a style="color:cadetblue"  *ngIf="getRole() === 'ROLE_RS'" [routerLink]="['/rs/facture']">consulter</a>
-            <a style="color:cadetblue"  *ngIf="getRole() === 'ROLE_RBO'" [routerLink]="['/rs/facture']">consulter</a>
+            <a style="color:cadetblue"  *ngIf="getRole() === 'ROLE_RBO'" [routerLink]="['/rbo/facture']">consulter</a>
           </li>
           </ul>
         </div>

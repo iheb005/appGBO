@@ -171,6 +171,13 @@ this.ngOnInit();
 
 }
 
+stateToggler(id){
+  console.log("clicked "+id);
+  this.structureservice.toggleState(id).subscribe(res=>{
+    this.getAllStructures();
+    console.log(res);
+  });
+}
 
 
 }

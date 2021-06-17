@@ -60,7 +60,7 @@
   
   /* Legend */
   .legend{
-    border:500px solid transparent;
+    border:800px solid transparent;
     border-left:800px solid rgba(52, 73, 94, .7);
     border-bottom:0;
     position:absolute;

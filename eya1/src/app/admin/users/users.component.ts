@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
     password: '',
     telephone: '',
     role: '',
-    type_structure: '',
+    typeStructure: '',
     active: '',
     dateCreation: ''
   };
@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
       password: [''],
       telephone: [''],
       role: [''],
-      type_structure: [''],
+      typeStructure: [''],
       etat: [''],
       date_creation: ['']
 
@@ -123,7 +123,7 @@ export class UsersComponent implements OnInit {
     document.getElementById('emaill').setAttribute('value', user.email);
     document.getElementById('passwordd').setAttribute('value', user.password);
     document.getElementById('telephonee').setAttribute('value', user.telephone);
-    document.getElementById('typeStructuree').setAttribute('value', user.type_structure);
+    document.getElementById('typeStructuree').setAttribute('value', user.typeStructure);
     document.getElementById('rolee').setAttribute('value', user.role);
     document.getElementById('etatt').setAttribute('value', user.active);
 
@@ -146,7 +146,7 @@ export class UsersComponent implements OnInit {
       password: user.password,
       telephone: user.telephone,
       role: user.role,
-      type_structure: user.type_structure,
+      typeStructure: user.typeStructure,
       etat: user.active,
       date_creation: user.dateCreation,
 

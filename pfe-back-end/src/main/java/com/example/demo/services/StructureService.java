@@ -15,6 +15,6 @@ public interface StructureService {
 
     List<Structure> findAll();
 
-    Structure activerStructure(Long id , Structure structure);
+    Structure activerStructure(Long id );
 
 }
