@@ -41,7 +41,7 @@ public class NotificationController {
         Facture facture = factureService.getFactureById(Long.valueOf(
                 notification.get("idFacture").toString())
         );
-        facture.setEtat("envoyé");
+        facture.setEtat("Envoyer");
         factureService.updateFacture(facture.getId(),facture);
         Notification notification1 = new Notification();
         notification1.setStructureName("");
@@ -49,5 +49,21 @@ public class NotificationController {
         notification1.setSeen(false);
         return notificationService.add(notification1);
 
+    }
+    @PostMapping("/save2")
+    public void saveNotification2(@RequestBody Map<String, Object> notification) {
+        Facture facture = factureService.getFactureById(Long.valueOf(
+                notification.get("idFacture").toString())
+        );
+        facture.setEtat("Valider");
+        factureService.updateFacture(facture.getId(),facture);
+    }
+    @PostMapping("/save3")
+    public void saveNotification3(@RequestBody Map<String, Object> notification) {
+        Facture facture = factureService.getFactureById(Long.valueOf(
+                notification.get("idFacture").toString())
+        );
+        facture.setEtat(" Annuler");
+        factureService.updateFacture(facture.getId(),facture);
     }
 }

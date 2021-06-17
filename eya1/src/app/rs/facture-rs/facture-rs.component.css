@@ -102,9 +102,16 @@
   table.table td a.edit {
 	  color: #FFC107;
   }
+  table.table td a.valide {
+	color: #07ff83;
+}
   table.table td a.edit:hover {
 	color: #000;
 }
+table.table td a.valide:hover {
+	color: #000;
+}
+ 
   table.table td a.view {
     color: #000;
 }

@@ -38,6 +38,6 @@ public class NotificationService {
     public List<Notification> findAll() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Utilisateur byEmail = utilisateurService.getByEmail(userDetails.getUsername());
-        return notificationRepository.findAllBySendTo(byEmail.getRole());
+        return notificationRepository.findAll();
     }
 }

@@ -320,7 +320,7 @@ FournisseurFilterChange($event){
       let notifications: any
       this.notifService.findNotif().subscribe(data => notifications = data);
       element = notifications.find(element => element.sendTo == "ROLE_RS");
-      // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
+     
     }
   }
 

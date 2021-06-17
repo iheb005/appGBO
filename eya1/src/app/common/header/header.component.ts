@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {JwtService} from "../../service/jwt.service";
 import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {NotificationService} from "../../service/notification.service";
+import { UserService } from 'src/app/service/user.service';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,10 @@ import {NotificationService} from "../../service/notification.service";
 export class HeaderComponent implements OnInit {
 
   notifications: any;
-
+  userList:User[];
+  iduserconnected:any;
+  notificationsfilterd:any
+  userconnected=JSON.parse(localStorage.getItem("user"))
   data: any;
   interval: any;
   dropdown:boolean = false;
@@ -23,18 +28,24 @@ export class HeaderComponent implements OnInit {
               private jwtService: JwtService,
               config: NgbModalConfig,
               private modalService: NgbModal,
-              private notifService: NotificationService) {
+              private notifService: NotificationService,
+              private userservice :UserService) {
     config.backdrop = 'static';
     config.keyboard = false;
     this.dropdown=false;
   }
 
   ngOnInit(): void {
+    this.getAllusers();
+    console.log('iddddddddddddd',this.iduserconnected)
+    // this.findMyNotifications()
     this.refreshData();
     this.interval = setInterval(() => {
       this.refreshData();
     }, 10000);
     // this.findMyNotifications();
+
+    console.log("connected user",this.userconnected);
   }
   toggledropdown(){
     this.dropdown =!this.dropdown;
@@ -82,9 +93,24 @@ export class HeaderComponent implements OnInit {
 
   findMyNotifications() {
     console.log("load notif")
-    this.notifService.findNotif().subscribe(data => {
-      console.log(data)
-      this.notifications = data;
+    this.notifService.findNotif().subscribe((data:any) => {
+      console.log("notifications sans filter",data)
+      this.notificationsfilterd = data.filter((el)=>el.senderId==this.iduserconnected);
+      console.log("notifications",this.notificationsfilterd)
     })
+  }
+
+  getAllusers(){
+    this.userservice.getAllUsers().subscribe(data => {
+      this.userList = Object.assign([], data)
+      console.log("users",this.userList)
+      this.iduserconnected=this.userList.filter(el=>el.email==this.userconnected.username)[0].id
+      console.log("iduser",this.iduserconnected)
+
+      this.findMyNotifications()
+    },
+      error => {
+        console.log(error);
+      });
   }
 }

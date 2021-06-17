@@ -76,9 +76,10 @@
                   <!--details--->
                   <a class="details" data-toggle="modal" (click)="openEdit1(contentEdit1, fac)"><i
                     class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i> </a>
-                       <!--Imprimer--->
-                  <a class="" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
+                  <!--Notification-->
                   <a class="" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
+                   <!--Imprimer--->
+                   <a class=""  *ngIf="fac.etat=='Valider'" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
                 </td>
 
               </tr>
@@ -154,13 +155,13 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="etat">Etat</label>
         <div class="input-group">
           <input id="etat"  name="etat"    #etat="ngModel" ngModel class="form-control" required >
         </div>
         <span  class="error" *ngIf="etat.invalid && etat.touched" class="error">Il faut  le remplir</span>
-      </div>
+      </div>-->
       <div class="border text-center">
         <button data-dismiss="modal" class="btn btn-info">Ajouter</button>
       </div>

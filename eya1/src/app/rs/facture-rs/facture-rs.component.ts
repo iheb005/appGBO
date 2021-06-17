@@ -321,4 +321,33 @@ export class FactureRsComponent implements OnInit {
     }
   }
 
+  saveNotification2(id: number, structure: string) {
+    let notifModel = new NotifModel();
+    let element = new NotifModel();
+    notifModel.idFacture = id;
+    notifModel.structureName = structure;
+    console.log('model ', notifModel)
+    this.notifService.saveNotif2(notifModel).subscribe(data => console.log(data));
+    if (localStorage.getItem("role") == 'ROLE_RS') {
+      let notifications: any
+      this.notifService.findNotif().subscribe(data => notifications = data);
+      element = notifications.find(element => element.sendTo == "ROLE_RS");
+      // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
+    }
+  }
+  saveNotification3(id: number, structure: string) {
+    let notifModel = new NotifModel();
+    let element = new NotifModel();
+    notifModel.idFacture = id;
+    notifModel.structureName = structure;
+    console.log('model ', notifModel)
+    this.notifService.saveNotif3(notifModel).subscribe(data => console.log(data));
+    if (localStorage.getItem("role") == 'ROLE_RS') {
+      let notifications: any
+      this.notifService.findNotif().subscribe(data => notifications = data);
+      element = notifications.find(element => element.sendTo == "ROLE_RS");
+      // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
+    }
+  }
+
 }

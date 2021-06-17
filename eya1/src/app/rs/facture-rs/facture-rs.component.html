@@ -41,13 +41,12 @@
                   <button [routerLink]="['/rs/facture',fac.id]"> <span>Consulter</span></button>
                 </td>
                 <td>
-                  <!--edit-->
-                  <a class="edit" data-toggle="modal" (click)="openEdit(contentEdit, fac)"><i class="material-icons"data-toggle="tooltip"title="Edit">
-                    &#xE254; </i></a>
-                  <!--delete--->
-                  <a class="delete" data-toggle="modal" (click)="openDelete(contentDelete, fac)"><i
-                    class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    <a class="" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
+                    <!--Notification-->
+                    <a class="edit" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
+                    <!--Valider-->
+                    <a class="valide" *ngIf="fac.etat=='Envoyer'" (click)="saveNotification2(fac.id, fac.structure)" ><i class="fa fa-check-circle" aria-hidden="true"></i> </a>
+                  <!--Annuler-->
+                  <a class="delete" *ngIf="fac.etat=='Envoyer'" (click)="saveNotification3(fac.id, fac.structure)" ><i class="fa fa-ban" aria-hidden="true"></i> </a>
 
                 </td>
               </tr>
@@ -55,92 +54,7 @@
             </table>
             <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
           </div>
-          <!---Annuler facture-->
-          <ng-template #contentDelete let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title">Confirmation de la suppression</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <h2>Êtes-vous sûr de vouloir Annuler cette facture cette facture.</h2>
-
-              <div class="border text-center">
-                <button data-dismiss="modal" class="btn btn-danger" (click)="deleteFacture()">Oui, Annuler!</button>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
-            </div>
-          </ng-template>
-
-
-          <!----modifier facture -->
-          <ng-template #contentEdit let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title" id="modal-basic-title2">Modifier Facture</h4>
-              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form [formGroup]="editForm" novalidate>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label>RaisonSociale</label>
-                    <div class="input-group">
-                      <input formControlName="raisonSocial" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>NumBande</label>
-                    <div class="input-group">
-                      <input formControlName="numBonde" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>NumFact</label>
-                    <div class="input-group">
-                      <input formControlName="numFact" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>DateFact</label>
-
-                      <input class="form-control"
-                    placeholder="dd-mm-yyyy"
-                    formControlName="dateFact"
-                   ngbDatepicker #d="ngbDatepicker">
-
-
-                  </div>
-                  <div class="form-group">
-                    <label>TTC</label>
-                    <div class="input-group">
-                      <input formControlName="ttc" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>Structure</label>
-                    <div class="input-group">
-                      <input formControlName="structure" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label>Etat</label>
-                    <div class="input-group">
-                      <input formControlName="etat" class="form-control">
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success" data-dismiss="modal" (click)=" Edit()">Modifier</button>
-              <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Fermer</button>
-            </div>
-          </ng-template>
+         
+      
         </div>
       </div>
