@@ -81,9 +81,7 @@
                    <!--Imprimer--->
                    <a class=""  *ngIf="fac.etat=='Valider'" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
                 </td>
-
               </tr>
-
               </tbody>
             </table>
             <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
@@ -146,12 +144,11 @@
       <div class="form-group">
         <label for="structure">Structure</label>
         <div class="input-group">
-          <input id="structure"  class="form-control"  name="structure"  ngModel required  #structure="ngModel"    >
-
-         <!--- <input class="form-control" id="structure"  name="structure"  (input)="structFilterChange($event)" #structure="ngModel" ngModel required >
-                <select class="select-custom" name="strctureSelect" id=""   >
-                  <option *ngFor="let struct of filtredStructs"  [value]="struct.id" structure="ngModel" ngModel required  >{{struct.nomStructure}}</option>
-              </select>-->
+         <!-- <input id="structure"  class="form-control"  name="structure"  ngModel required  #structure="ngModel">-->
+         <input class="form-control" id="structure"  name="structure"  (input)="structFilterChange($event)" >
+            <select class="select-custom" name="strctureSelect" id=""   >
+              <option *ngFor="let struct of filtredStructs"  [value]="struct.id"  >{{struct.nomStructure}}</option>
+          </select>
         </div>
       </div>
 
