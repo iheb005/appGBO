@@ -12,7 +12,7 @@ public interface FactureService {
     Facture getFactureById(Long id);
     Facture getFactureById2();
 
-    Facture insert(Facture facture);
+    Facture insert(Facture facture,Long idstructure);
 
     void updateFacture(Long id, Facture facture);
 

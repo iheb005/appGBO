@@ -19,6 +19,7 @@ import {LandingComponent} from "./landing/landing.component";
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { FactureRsComponent } from './rs/facture-rs/facture-rs.component';
 import { RsAnnexeComponent } from './rs/rs-annexe/rs-annexe.component';
+import { ImpressionComponent } from './rbo/impression/impression.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,10 @@ const routes: Routes = [
         path: 'home', // child route path
         component: HomeComponent, // child route component that the router renders
       },
-    
+      {
+        path: 'imprimer/:id', // child route path
+        component: ImpressionComponent, // child route component that the router renders
+      },
       {
         path: 'stat',// child route path
         component: StatistiqueComponent, // child route component that the router renders

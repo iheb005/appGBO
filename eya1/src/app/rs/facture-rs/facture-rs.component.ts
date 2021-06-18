@@ -12,52 +12,15 @@ import {NotifModel} from "../../model/NotifModel";
 import {NotificationService} from "../../service/notification.service";
 import {StructureService} from "../../service/structure.service";
 
-
 @Component({
   selector: 'app-facture-rs',
   templateUrl: './facture-rs.component.html',
   styleUrls: ['./facture-rs.component.css']
 })
 export class FactureRsComponent implements OnInit {
-
-  
-  deleteId: any;
-  editForm: FormGroup;
-  factures: any = [];
-  closeResult: string;
-  myContition = false;
-
-  structures: any;
-  raisonsSociaux: any = [];
-  bondecommande: any = [];
-  /*{
-    id: 1,
-    num: 'S5FD'
-  },
-  {
-    id: 3,
-    num: 'K6FD'
-  }
-];*/
-
-
-  myFact: any = {
-    id: '',
-    numFournisseur: '',
-    raisonSocial: '',
-    numBonde: '',
-    dateFact: '',
-    ttc: '',
-    structure: '',
-    etat: '',
-    numFact: ''
-  };
-  id: any;
+  factures:Fact [];
   totalLength: any;
   page: number = 1;
-  raisonSocial: any;
-  dateFact: NgbDate;
-
   constructor(private factserv: ServiceService,
               private modalService: NgbModal,
               private fb: FormBuilder,
@@ -69,33 +32,13 @@ export class FactureRsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fournisseurService.getRaisonsSociaux().subscribe(data => {
-      this.raisonsSociaux = data;
-    });
+
     this.getFacture();
-    this.editForm = this.fb.group({
-      raisonSocial: [''],
-      numBonde: [''],
-      dateFact: [''],
-      ttc: [''],
-      structure: [''],
-      etat: [''],
-      numFact: [''],
-
-
-    });
-    setTimeout(() => {
-      this.structures = this.getStructures()
-    }, 5000)
-    console.log("struc ", this.structures)
+  
   }
 
 
-  getStructures() {
-    this.structureService.getAllStructures().subscribe(data => {
-      return data;
-    });
-  }
+
 
   /*******************onselect******/
   onSelect(fac) {
@@ -103,208 +46,38 @@ export class FactureRsComponent implements OnInit {
     //console.log(fac.id)
   }
 
-  /*************************/
-  open(content) {
-    const today = new Date();
-    this.dateFact = new NgbDate(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      today.getDate());
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  /********************details facture */
-
-  openDetails(targetModal, facture: Fact) {
-    this.id = facture.id;
-    this.modalService.open(targetModal, {
-      centered: true,
-      backdrop: 'static',
-      size: 'lg'
-    });
-    document.getElementById('raisonSocial').setAttribute('value', facture.raisonSocial);
-    document.getElementById('numBande').setAttribute('value', facture.numBonde);
-    document.getElementById('numFact').setAttribute('value', facture.numFact);
-    document.getElementById('ttcFact').setAttribute('value', facture.ttc);
-    document.getElementById('dateFact').setAttribute('value', facture.dateFact);
-    document.getElementById('structureFact').setAttribute('value', facture.structure);
-    document.getElementById('etat').setAttribute('value', facture.etat);
-  }
-
-  /*****************supprimer facture */
-
-  openDelete(targetModal, facture: Fact) {
-    //this.deleteId = this.myFact.id ;
-    this.id = facture.id;
-    this.modalService.open(targetModal, {
-      backdrop: 'static',
-      size: 'lg'
-    });
-  }
-
-  deleteFacture() {
 
 
-    this.factserv.delete(this.id).subscribe(res => {
-      this.getFacture();
-      this.modalService.dismissAll();
-      console.log(res);
-      this.toastr.error('avec succès!', 'Facture Supprimée',);
 
-    }, error => {
-      console.log(error);
-    });
-
-  }
 
   /**************geet */
   getFacture() {
-    this.factserv.getAll().subscribe(data => {
-      this.factures = data;
-      console.log(data);
+    this.factserv.getAll().subscribe((data:any) => {
+      if (localStorage.getItem("role") == 'ROLE_RS') {
+      this.factures = data.filter((el)=>el.etat==="Envoyer");
+
+      }
+      else {
+        this.factures = data;
+
+      }
+      console.log("filter facture",this.factures);
     });
   }
 
-  /**********post */
-  onSubmit(form: NgForm) {
-    form.value.dateFact = new Date(
-      form.value.dateFact.year,
-      form.value.dateFact.month,
-      form.value.dateFact.day);
-    this.factserv.addFact(form.value).subscribe(
-      data => {
-        console.log(form.value)
-        this.toastr.success('avec succès!', 'Facture ajoutée',);
-        this.factures = Object.assign([], data)
-        this.resetForm(form);
-        this.getFacture();
-      },
-      error => {
-        console.log(error);
-      });
-    this.modalService.dismissAll();
 
-  }
 
-  resetForm(form) {
-    form.reset();
-  }
 
   /*********************Modifier facture */
-  openEdit(targetModal, facture: Fact) {
-    this.id = facture.id;
-    this.modalService.open(targetModal, {
-      backdrop: 'static',
-      size: 'lg'
-    });
-    const selectedDay = new Date(facture.dateFact);
-    this.editForm.patchValue({
-      /* id : facture.id,
-       dateFact : new NgbDate(selectedDay.getFullYear(),
-       selectedDay.getMonth() + 1,
-       selectedDay.getDate())*/
-      raisonSocial: facture.raisonSocial,
-      numBonde: facture.numBonde,
-      strcucture: facture.structure,
-      ttc: facture.ttc,
-      //datefact: facture.dateFact,
-      etat: facture.etat,
-      numFact: facture.numFact
+ 
 
-    });
-    this.editForm.patchValue({});
-  }
-
-  Edit() {
-
-    console.log(this.editForm.value);
-    this.factserv.put(this.id, this.editForm.value)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-        this.toastr.warning('avec succès!', 'Facture modifiée',);
-
-      });
-  }
-
-  /********************* */
-  /*********************Mdetails */
-  openEdit1(targetModal, facture: Fact) {
-    this.id = facture.id;
-    this.modalService.open(targetModal, {
-      backdrop: 'static',
-      size: 'lg'
-    });
-    const selectedDay = new Date(facture.dateFact);
-    this.editForm.patchValue({
-      dateFact: new NgbDate(selectedDay.getFullYear(),
-        selectedDay.getMonth() + 1,
-        selectedDay.getDate()),
-      raisonSocial: facture.raisonSocial,
-      numBonde: facture.numBonde,
-      strcucture: facture.structure,
-      ttc: facture.ttc,
-      // datefact: facture.dateFact,
-      etat: facture.etat,
-      numFact: facture.numFact
-
-    });
-  }
-
-  Edit1() {
-    console.log(this.editForm.value);
-    this.factserv.put(this.id, this.editForm.value)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
-  }
-
-  /****Imprimer */
-  myFun() {
-    window.print();
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  filterRaisons(str: string) {
-    if (typeof str === 'string') {
-      this.raisonsSociaux = this.raisonsSociaux.filter(a => a.toLowerCase()
-        .startsWith(str.toLowerCase()));
-    }
-  }
-
-  filterBon(str: string) {
-    if (typeof str === 'string') {
-      this.bondecommande = this.bondecommande.filter(a => a.toLowerCase()
-        .startsWith(str.toLowerCase()));
-    }
-  }
-
-  search() {
-    if (this.raisonSocial == "") {
-      this.ngOnInit();
-    } else {
-      this.factures = this.factures.filter(res => {
-        return res.raisonSocial.toLocaleLowerCase().match(this.raisonSocial.toLocaleLowerCase())
+ 
 
 
-      })
-    }
 
-  }
+
+ 
+  
 
   saveNotification(id: number, structure: string) {
     let notifModel = new NotifModel();
@@ -312,7 +85,11 @@ export class FactureRsComponent implements OnInit {
     notifModel.idFacture = id;
     notifModel.structureName = structure;
     console.log('model ', notifModel)
-    this.notifService.saveNotif(notifModel).subscribe(data => console.log(data));
+    this.notifService.saveNotif(notifModel).subscribe(data => 
+     { this.getFacture()
+      console.log(data)}
+      
+      );
     if (localStorage.getItem("role") == 'ROLE_RS') {
       let notifications: any
       this.notifService.findNotif().subscribe(data => notifications = data);
@@ -327,7 +104,11 @@ export class FactureRsComponent implements OnInit {
     notifModel.idFacture = id;
     notifModel.structureName = structure;
     console.log('model ', notifModel)
-    this.notifService.saveNotif2(notifModel).subscribe(data => console.log(data));
+    this.notifService.saveNotif2(notifModel).subscribe(data =>
+    { this.getFacture()
+      console.log(data)}
+    
+    );
     if (localStorage.getItem("role") == 'ROLE_RS') {
       let notifications: any
       this.notifService.findNotif().subscribe(data => notifications = data);

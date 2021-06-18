@@ -41,18 +41,18 @@ put(id,Update):Observable<any>
 //methode ajouter//
 
 addFact(f : Fact):Observable<any> {
+  console.log("dataaaaaa  in",f)
   const obj =
    {
       raisonSocial: f.raisonSocial,
       numBonde:f.numBonde,
       dateFact: f.dateFact,
       ttc: f.ttc,
-      structure: f.structure,
       etat: "Nouvelle",
       numFact: f.numFact
   };
-   //console.log(obj);
-return  this.http.post(`${this.baseUrl}/facture/save`, obj);
+   console.log("ddddddd",obj);
+return  this.http.post(`${this.baseUrl}/facture/save/${f.structure}`, obj);
 }
 
 

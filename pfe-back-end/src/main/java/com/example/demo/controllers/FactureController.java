@@ -1,12 +1,14 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Facture;
+import com.example.demo.entities.Structure;
 import com.example.demo.repository.FactureRepository;
 import com.example.demo.services.FactureService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -33,9 +35,25 @@ public class FactureController {
     }
 
     //The function receives a POST request, processes it, creates a new DAOStructure and saves it to the database, and returns a resource link to the created todo.    @PostMapping
-    @RequestMapping(value = "/facture/save", method = RequestMethod.POST)
-    public Facture saveFacture(@RequestBody Facture facture) {
-        return factureService.insert(facture);
+    @RequestMapping(value = "/facture/save/{idstructure}", method = RequestMethod.POST)
+    public HashMap<String,Facture> saveFacture(@RequestBody Facture facture, @PathVariable Long idstructure) {
+
+        HashMap<String,Facture> stringFactureHashMap=new HashMap<>();
+
+        try {
+
+            //        return factureService.insert(facture,idstructure);
+
+            Facture facture1=factureService.insert(facture,idstructure);
+
+
+            stringFactureHashMap.put("object",facture1);
+            return  stringFactureHashMap;
+
+        } catch (Exception e ) {
+
+            return stringFactureHashMap;
+        }
     }
 
     //The function receives a PUT request, updates the DAOStructure with the specified Id and returns the updated DAOStructure

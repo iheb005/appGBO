@@ -32,6 +32,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FactureRsComponent } from './rs/facture-rs/facture-rs.component';
 import { RsAnnexeComponent } from './rs/rs-annexe/rs-annexe.component';
+import { ImpressionComponent } from './rbo/impression/impression.component';
 
 
 
@@ -58,6 +59,7 @@ import { RsAnnexeComponent } from './rs/rs-annexe/rs-annexe.component';
     HomeAdminComponent,
     FactureRsComponent,
     RsAnnexeComponent,
+    ImpressionComponent,
   ],
   imports: [
     BrowserModule,

@@ -64,7 +64,7 @@ export class FactureComponent implements OnInit {
   ngOnInit(): void {
    
     this.getFacture();
-    //this.getData ();
+    this.getData ();
     this.editForm = this.fb.group({
       raisonSocial: [''],
       numBonde: [''],
@@ -102,9 +102,9 @@ getData ()
         ]).subscribe(([response1, response2]) => {
           
           this.resData = [response1, response2];
-          this.fournisseur= response2;
+          this.fournisseur= response1;
           this.bon = response2;
-          console.log();
+          console.log("data api",response1,response2);
         }
         )
      
@@ -195,19 +195,21 @@ FournisseurFilterChange($event){
   /**************geet */
   getFacture() {
     this.factserv.getAll().subscribe(data => {
+      console.log('data factures',data)
       this.factures = data;
     });
   }
 
   /**********post */
   onSubmit(form: NgForm) {
+    console.log("value of form", form.value)
     form.value.dateFact = new Date(
       form.value.dateFact.year,
       form.value.dateFact.month,
       form.value.dateFact.day);
     this.factserv.addFact(form.value).subscribe(
       data => {
-        console.log(form.value)
+        console.log("dataaaaaaaaaaaaaaaaaaaa",form.value)
         this.toastr.success('avec succès!', 'Facture ajoutée',);
         this.factures = Object.assign([], data)
         this.resetForm(form);
@@ -315,7 +317,10 @@ FournisseurFilterChange($event){
     notifModel.idFacture = id;
     notifModel.structureName = structure;
     console.log('model ', notifModel)
-    this.notifService.saveNotif(notifModel).subscribe(data => console.log(data));
+    this.notifService.saveNotif(notifModel).subscribe(data => 
+    
+    { this.getFacture()
+      console.log(data)});
     if (localStorage.getItem("role") == 'ROLE_RS') {
       let notifications: any
       this.notifService.findNotif().subscribe(data => notifications = data);

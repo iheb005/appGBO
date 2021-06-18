@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import com.example.demo.entities.Facture;
 import com.example.demo.entities.FicheAnnexe;
+import com.example.demo.entities.Structure;
 import com.example.demo.repository.FactureRepository;
 
+import com.example.demo.repository.StructureRepository;
 import com.example.demo.services.FactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class FactureServiceImpl implements FactureService {
 
     @Autowired
     FactureRepository factureRepository;
+
+
+    @Autowired
+    StructureRepository structureRepository;
 
     public FactureServiceImpl(FactureRepository factureRepository) {
         this.factureRepository = factureRepository;
@@ -39,7 +45,10 @@ public class FactureServiceImpl implements FactureService {
     }
 
     @Override
-    public Facture insert(Facture facture) {
+    public Facture insert(Facture facture,Long idstructure) {
+
+        Structure structure= structureRepository.findById(idstructure).get();
+        facture.setStructure(structure);
         return factureRepository.save(facture);
     }
 

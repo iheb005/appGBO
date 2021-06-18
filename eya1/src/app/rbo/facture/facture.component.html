@@ -61,7 +61,7 @@
                 <td><span>{{fac.numFact}}</span></td>
                 <td><span>{{fac.dateFact | date: 'shortDate'}}</span></td>
                 <td><span>{{fac.ttc}}</span></td>
-                <td><span>{{fac.structure}}</span></td>
+                <td><span>{{fac.structure.nomStructure}}</span></td>
                 <td><span>{{fac.etat}}</span></td>
                 <td>
                   <button [routerLink]="['/rbo/facture',fac.id]"> <span>Ajouter</span></button>
@@ -79,7 +79,7 @@
                   <!--Notification-->
                   <a class="" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
                    <!--Imprimer--->
-                   <a class=""  *ngIf="fac.etat=='Valider'" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
+                   <a class="" [routerLink]="['/rbo/imprimer',fac.id]"  *ngIf="fac.etat=='Valider'" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
                 </td>
               </tr>
               </tbody>
@@ -103,9 +103,8 @@
       <div class="form-group">
         <label for="raisonSocial">RaisonSocial</label>
         <div class="input-group">
-          <input id="raisonSocial" name="raisonSocial" class="form-control" required #raisonSocial="ngModel" ngModel  required  (input)="FournisseurFilterChange($event)" >
-          <select class="select-custom" name="strctureSelect" id=""   >
-            <option *ngFor="let struct of filtredStructs"  [value]="struct.id">{{struct.nomStructure}}</option>
+          <select class="select-custom"  name="raisonSocial" class="form-control" required #raisonSocial="ngModel" ngModel  required   >
+            <option *ngFor="let f of fournisseur"  [value]="f.ABAN8">{{f.ABAN8}}</option>
         </select>
         </div>
       </div>
@@ -113,7 +112,9 @@
       <div class="form-group">
         <label for="numBonde">NumBondeCommande</label>
         <div class="input-group">
-          <input id="numBonde" name="numBonde"  class="form-control"   ngModel   #numBonde="ngModel"  required>
+          <select class="select-custom"  name="numBonde"  class="form-control"   ngModel   #numBonde="ngModel"  required >
+            <option *ngFor="let b of bon"  [value]="b.PHDOCO"   >{{b.PHDOCO}}</option>
+        </select>
         </div>
         <span  class="error" *ngIf="numBonde.invalid && numBonde.touched" class="error">Il faut  le remplir</span>
       </div>
@@ -145,9 +146,9 @@
         <label for="structure">Structure</label>
         <div class="input-group">
          <!-- <input id="structure"  class="form-control"  name="structure"  ngModel required  #structure="ngModel">-->
-         <input class="form-control" id="structure"  name="structure"  (input)="structFilterChange($event)" >
-            <select class="select-custom" name="strctureSelect" id=""   >
-              <option *ngFor="let struct of filtredStructs"  [value]="struct.id"  >{{struct.nomStructure}}</option>
+         <input class="form-control" id="structure1"  name="structure1"  (input)="structFilterChange($event)" >
+            <select class="select-custom" name="structure" id=""  ngModel required  #structure="ngModel" >
+              <option *ngFor="let struct of filtredStructs"  [value]="struct.id"   >{{struct.nomStructure}}</option>
           </select>
         </div>
       </div>
