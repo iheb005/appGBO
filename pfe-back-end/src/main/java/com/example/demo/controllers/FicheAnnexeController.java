@@ -7,9 +7,11 @@ import com.example.demo.services.FicheAnnexeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,12 +59,14 @@ public ResponseEntity<List<ResponseFiche>> getListFiles() {
                     .path(dbFile.getId())
                     .toUriString();
             return new ResponseFiche(
-                    dbFile.getNom(),
+                    dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
                     dbFile.getData().length);
+
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+
 }

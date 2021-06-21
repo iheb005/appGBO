@@ -42,7 +42,7 @@ public class FicheAnnexeServiceImpl implements FicheAnnexeService {
         return ficheAnnexeRepository.findAll().stream();
     }*/
 
-
+    @Override
     public FicheAnnexe store (MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         FicheAnnexe fileDB = FicheAnnexe.builder()
@@ -53,11 +53,11 @@ public class FicheAnnexeServiceImpl implements FicheAnnexeService {
 
         return ficheAnnexeRepository.save(fileDB);
     }
-
+    @Override
     public FicheAnnexe getFile(String id) {
         return ficheAnnexeRepository.findById(id).get();
     }
-
+    @Override
     public Stream<FicheAnnexe> getAllFiles() {
         return ficheAnnexeRepository.findAll().stream();
     }

@@ -54,7 +54,7 @@ export class FactureRsComponent implements OnInit {
   getFacture() {
     this.factserv.getAll().subscribe((data:any) => {
       if (localStorage.getItem("role") == 'ROLE_RS') {
-      this.factures = data.filter((el)=>el.etat==="Envoyer");
+      this.factures = data.filter((el)=>el.etat==="Envoyée");
 
       }
       else {
@@ -116,7 +116,7 @@ export class FactureRsComponent implements OnInit {
       // this.factserv.put(element.idFacture, facture.setEtat('envoyée'))
     }
   }
-  saveNotification3(id: number, structure: string) {
+      saveNotification3(id: number, structure: string) {
     let notifModel = new NotifModel();
     let element = new NotifModel();
     notifModel.idFacture = id;

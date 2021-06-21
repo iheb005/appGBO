@@ -328,6 +328,40 @@ FournisseurFilterChange($event){
      
     }
   }
+  saveNotification4(id: number, structure: string) {
+    let notifModel = new NotifModel();
+    let element = new NotifModel();
+    notifModel.idFacture = id;
+    notifModel.structureName = structure;
+    console.log('model ', notifModel)
+    this.notifService.saveNotif4(notifModel).subscribe(data => 
+    
+    { this.getFacture()
+      console.log(data)});
+    if (localStorage.getItem("role") == 'ROLE_RS') {
+      let notifications: any
+      this.notifService.findNotif().subscribe(data => notifications = data);
+      element = notifications.find(element => element.sendTo == "ROLE_RS");
+     
+    }
+  }
+  saveNotification5(id: number, structure: string) {
+    let notifModel = new NotifModel();
+    let element = new NotifModel();
+    notifModel.idFacture = id;
+    notifModel.structureName = structure;
+    console.log('model ', notifModel)
+    this.notifService.saveNotif5(notifModel).subscribe(data => 
+    
+    { this.getFacture()
+      console.log(data)});
+    if (localStorage.getItem("role") == 'ROLE_RS') {
+      let notifications: any
+      this.notifService.findNotif().subscribe(data => notifications = data);
+      element = notifications.find(element => element.sendTo == "ROLE_RS");
+     
+    }
+  }
 
   search() {
     if (this.raisonSocial == "") {

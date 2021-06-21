@@ -23,9 +23,17 @@ export class NotificationService {
     console.log("save notif ", data)
     return this.http.post(`${this.apiUrl}/save2`, data);
   }
-  public saveNotif3(data: NotifModel): Observable<any> {
+ public saveNotif3(data: NotifModel): Observable<any> {
     console.log("save notif ", data)
     return this.http.post(`${this.apiUrl}/save3`, data);
+  }
+  public saveNotif4(data: NotifModel): Observable<any> {
+    console.log("save notif ", data)
+    return this.http.post(`${this.apiUrl}/save4`, data);
+  }
+  public saveNotif5(data: NotifModel): Observable<any> {
+    console.log("save notif ", data)
+    return this.http.post(`${this.apiUrl}/save5`, data);
   }
 
 

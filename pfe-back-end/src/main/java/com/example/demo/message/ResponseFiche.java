@@ -6,6 +6,9 @@ public class ResponseFiche {
     private String type;
     private long size;
 
+    /***********/
+
+
     public ResponseFiche(String name, String url, String type, long size) {
         this.name = name;
         this.url = url;

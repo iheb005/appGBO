@@ -41,7 +41,7 @@ public class NotificationController {
         Facture facture = factureService.getFactureById(Long.valueOf(
                 notification.get("idFacture").toString())
         );
-        facture.setEtat("Envoyer");
+        facture.setEtat("Envoyée");
         factureService.updateFacture(facture.getId(),facture);
         Notification notification1 = new Notification();
         notification1.setStructureName("");
@@ -55,7 +55,7 @@ public class NotificationController {
         Facture facture = factureService.getFactureById(Long.valueOf(
                 notification.get("idFacture").toString())
         );
-        facture.setEtat("Valider");
+        facture.setEtat("Validée");
         factureService.updateFacture(facture.getId(),facture);
     }
     @PostMapping("/save3")
@@ -63,7 +63,24 @@ public class NotificationController {
         Facture facture = factureService.getFactureById(Long.valueOf(
                 notification.get("idFacture").toString())
         );
-        facture.setEtat(" Annuler");
+        facture.setEtat("Annulée");
+        factureService.updateFacture(facture.getId(),facture);
+    }
+
+    @PostMapping("/save4")
+    public void saveNotification4(@RequestBody Map<String, Object> notification) {
+        Facture facture = factureService.getFactureById(Long.valueOf(
+                notification.get("idFacture").toString())
+        );
+        facture.setEtat("Imprimée");
+        factureService.updateFacture(facture.getId(),facture);
+    }
+    @PostMapping("/save5")
+    public void saveNotification5(@RequestBody Map<String, Object> notification) {
+        Facture facture = factureService.getFactureById(Long.valueOf(
+                notification.get("idFacture").toString())
+        );
+        facture.setEtat("Archivée");
         factureService.updateFacture(facture.getId(),facture);
     }
 }

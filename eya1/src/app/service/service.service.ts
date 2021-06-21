@@ -25,11 +25,7 @@ delete(id):Observable<any>{
   return this.http.delete(`${this.baseUrl}/facture/delete/`+id)
 
 }
-/************* */
-/*addFact (facture)
-{
-  return this.http.post<Fact>(this.baseUrl+'/facture/save1',facture)
-}*/
+
 
 /******************** */
 put(id,Update):Observable<any>

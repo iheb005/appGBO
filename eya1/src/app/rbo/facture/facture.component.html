@@ -77,9 +77,12 @@
                   <a class="details" data-toggle="modal" (click)="openEdit1(contentEdit1, fac)"><i
                     class="material-icons" data-toggle="tooltip" title="View">&#xE417;</i> </a>
                   <!--Notification-->
-                  <a class="" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
+                  <a class="" (click)="saveNotification(fac.id, fac.structure)" *ngIf="fac.etat=='Nouvelle'"  ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
                    <!--Imprimer--->
-                   <a class="" [routerLink]="['/rbo/imprimer',fac.id]"  *ngIf="fac.etat=='Valider'" data-toggle="modal" ><i class="fa fa-print" aria-hidden="true"></i> </a>
+                   <a class="" [routerLink]="['/rbo/imprimer',fac.id]"  *ngIf="fac.etat=='Validée'" data-toggle="modal"   (click)="saveNotification4(fac.id, fac.structure)"><i class="fa fa-print" aria-hidden="true"></i> </a>
+                    <!--Archiver-->
+                    <a class=""  data-toggle="modal"  *ngIf="fac.etat=='Imprimée'" (click)="saveNotification5(fac.id, fac.structure)" ><i class="fa fa-archive" aria-hidden="true"></i> </a>
+
                 </td>
               </tr>
               </tbody>

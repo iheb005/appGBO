@@ -44,9 +44,9 @@
                     <!--Notification-->
                     <a class="edit" (click)="saveNotification(fac.id, fac.structure)" ><i class="fa fa-paper-plane" aria-hidden="true"></i> </a>
                     <!--Valider-->
-                    <a class="valide" *ngIf="fac.etat=='Envoyer'" (click)="saveNotification2(fac.id, fac.structure)" ><i class="fa fa-check-circle" aria-hidden="true"></i> </a>
+                    <a class="valide" *ngIf="fac.etat=='Envoyée'" (click)="saveNotification2(fac.id, fac.structure)" ><i class="fa fa-check-circle" aria-hidden="true"></i> </a>
                   <!--Annuler-->
-                  <a class="delete" *ngIf="fac.etat=='Envoyer'" (click)="saveNotification3(fac.id, fac.structure)" ><i class="fa fa-ban" aria-hidden="true"></i> </a>
+                  <a class="delete" *ngIf="fac.etat=='Envoyée'" (click)="saveNotification3(fac.id, fac.structure)" ><i class="fa fa-ban" aria-hidden="true"></i> </a>
 
                 </td>
               </tr>
