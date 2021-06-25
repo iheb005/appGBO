@@ -2,7 +2,7 @@ export class Fact
 {
 
     public id : number;
-    public  raisonSocial: string;
+    public raisonSocial: string;
     public numBonde: string;
     public dateFact: string;
     public ttc: string;

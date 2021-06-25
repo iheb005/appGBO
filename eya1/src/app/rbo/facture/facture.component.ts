@@ -66,11 +66,11 @@ export class FactureComponent implements OnInit {
     this.getFacture();
     this.getData ();
     this.editForm = this.fb.group({
-      raisonSocial: [''],
-      numBonde: [''],
-      dateFact: [''],
+    //  raisonSocial: [''],
+    // numBonde: [''],
+     //dateFact: [''],
       ttc: [''],
-      structure: [''],
+    //  structure: [''],
       etat: [''],
       numFact: [''],
 
@@ -233,19 +233,15 @@ FournisseurFilterChange($event){
       backdrop: 'static',
       size: 'lg'
     });
-    const selectedDay = new Date(facture.dateFact);
     this.editForm.patchValue({
-      /* id : facture.id,
-       dateFact : new NgbDate(selectedDay.getFullYear(),
-       selectedDay.getMonth() + 1,
-       selectedDay.getDate())*/
-      raisonSocial: facture.raisonSocial,
-      numBonde: facture.numBonde,
-      strcucture: facture.structure,
-      ttc: facture.ttc,
-      //datefact: facture.dateFact,
-      etat: facture.etat,
-      numFact: facture.numFact
+   
+       //raisonSocial : facture.raisonSocial,
+     // numBonde : facture.numBonde,
+     // strcucture : facture.structure,
+      ttc : facture.ttc,
+     // datefact : facture.dateFact,
+      etat : facture.etat,
+      numFact : facture.numFact
 
     });
     this.editForm.patchValue({});
@@ -276,9 +272,9 @@ FournisseurFilterChange($event){
       dateFact: new NgbDate(selectedDay.getFullYear(),
         selectedDay.getMonth() + 1,
         selectedDay.getDate()),
-      raisonSocial: facture.raisonSocial,
-      numBonde: facture.numBonde,
-      strcucture: facture.structure,
+     // raisonSocial: facture.raisonSocial,
+     // numBonde: facture.numBonde,
+    //  strcucture: facture.structure,
       ttc: facture.ttc,
       // datefact: facture.dateFact,
       etat: facture.etat,

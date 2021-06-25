@@ -44,5 +44,7 @@ export class ImpressionComponent implements OnInit {
         PDF.save('angular-demo.pdf');
     });     
   }
-
+  myFun() {
+    window.print();
+  }
 }

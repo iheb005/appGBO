@@ -59,7 +59,7 @@ public class FactureServiceImpl implements FactureService {
         factureFromDb.setNumBonde(facture.getNumBonde());
         factureFromDb.setNumFact(facture.getNumFact());
         factureFromDb.setDateFact(facture.getDateFact());
-        factureFromDb.setNumFournisseur(facture.getNumFournisseur());
+       // factureFromDb.setNumFournisseur(facture.getNumFournisseur());
         factureFromDb.setTtc(facture.getTtc());
         factureFromDb.setRaisonSocial(facture.getRaisonSocial());
         factureFromDb.setEtat(facture.getEtat());

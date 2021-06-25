@@ -44,7 +44,7 @@ addFact(f : Fact):Observable<any> {
       numBonde:f.numBonde,
       dateFact: f.dateFact,
       ttc: f.ttc,
-      etat: "Nouvelle",
+      etat: "Crée",
       numFact: f.numFact
   };
    console.log("ddddddd",obj);

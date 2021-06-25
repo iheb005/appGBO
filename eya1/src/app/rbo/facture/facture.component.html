@@ -268,7 +268,7 @@
           </ng-template>
 
 
-          <!----modifier facture -->
+          <!----modifier facture -
           <ng-template #contentEdit let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title2">Modifier Facture</h4>
@@ -279,7 +279,7 @@
             <div class="modal-body">
               <form [formGroup]="editForm" novalidate>
                 <div class="modal-body">
-                  <div class="form-group">
+                 <!--- <div class="form-group">
                     <label>RaisonSociale</label>
                     <div class="input-group">
                       <input formControlName="raisonSocial" class="form-control">
@@ -290,7 +290,7 @@
                     <div class="input-group">
                       <input formControlName="numBonde" class="form-control">
                     </div>
-                  </div>
+                  </div>-
                   <div class="form-group">
                     <label>NumFact</label>
                     <div class="input-group">
@@ -333,8 +333,60 @@
               <button type="submit" class="btn btn-success" data-dismiss="modal" (click)=" Edit()">Modifier</button>
               <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Fermer</button>
             </div>
-          </ng-template>
-       
+          </ng-template>-->
+       <!----modifier user -->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Modifier Utilisateur </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="editForm" novalidate  >
+          <div class="modal-body">
+                  <div class="form-group">
+                      <label >NumFact</label>
+                      <div class="input-group">
+                          <input formControlName="numFact" class="form-control">
+
+                       </div>
+                      </div>
+
+                        <div class="form-group">
+                          <label >Etat</label>
+                          <div class="input-group">
+                              <input formControlName="etat" class="form-control">
+    
+                           </div> 
+                          </div>
+                          <div class="form-group">
+                            <label >TTC</label>
+                            <div class="input-group">
+                                <input formControlName="ttc" class="form-control">
+      
+                             </div> 
+                            </div> 
+                        
+
+                  
+                 
+                   
+          
+                  
+                 
+                
+              
+           </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+      <button type="submit" class="btn btn-success" data-dismiss="modal" (click)=" Edit()" >Modifier</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Fermer</button>
+    </div>
+</ng-template>
+
     
 
       </body>
