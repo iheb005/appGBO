@@ -9,50 +9,56 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import java.io.Serializable;
+import javax.persistence.Entity;
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class Facture {
-    @Id
+public class Historique implements Serializable{
     @GeneratedValue
-    private Long id;
+    @EmbeddedId
+    private HistoriqueID historiqueID;
+ //   private Long id;
     private String numFournisseur;
     private String raisonSocial;
     private String numBonde;
     private String numFact;
     private String ttc;
-    private String etat;
+ //   private String etat;
    // private String structure;
     @CreationTimestamp
     private LocalDateTime dateFact;
 
-    @OneToOne(mappedBy="facture")
-    private Historique historique;
+@OneToOne
+private Facture facture;
 
-    @ManyToMany
+   /* @ManyToMany
     @JoinTable(
             name = "annexe",
-            joinColumns = {@JoinColumn(name = "facture_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "fiche_id", referencedColumnName = "id")}
+            joinColumns = {@JoinColumn(name = "historique_id", referencedColumnName = "id")}
+//            inverseJoinColumns = {@JoinColumn(name = "fiche_id", referencedColumnName = "id")}
     )
-    private List<FicheAnnexe> annexes = new ArrayList<>();
-    @JsonIgnore
+    private List<FicheAnnexe> annexes = new ArrayList<>();*/
+    /*@JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Structure> structures = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="id_structure")
     private Structure structure;
+*/
 
+    // public Long getId() {
+    //     return id;
+    // }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // public void setId(Long id) {
+    //     this.id = id;
+    // }
 
     public String getNumFournisseur() {
         return numFournisseur;
@@ -94,13 +100,13 @@ public class Facture {
         this.ttc = ttc;
     }
 
-    public String getEtat() {
-        return etat;
-    }
+    // public String getEtat() {
+    //     return etat;
+    // }
 
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
+    // public void setEtat(String etat) {
+    //     this.etat = etat;
+    // }
 
     public LocalDateTime getDateFact() {
         return dateFact;
@@ -110,28 +116,47 @@ public class Facture {
         this.dateFact = dateFact;
     }
 
-    public List<FicheAnnexe> getAnnexes() {
-        return annexes;
+    // public List<FicheAnnexe> getAnnexes() {
+    //     return annexes;
+    // }
+
+    // public void setAnnexes(List<FicheAnnexe> annexes) {
+    //     this.annexes = annexes;
+    // }
+
+    // @JsonIgnore
+    // public List<Structure> getStructures() {
+    //     return structures;
+    // }
+    // public Structure getStructure() {
+    //     return structure;
+    // }
+
+    // public void setStructure(Structure structure) {
+    //     this.structure = structure;
+    // }
+    // public void setStructures(List<Structure> structures) {
+    //     this.structures = structures;
+    // }
+
+
+    public Historique() {
     }
 
-    public void setAnnexes(List<FicheAnnexe> annexes) {
-        this.annexes = annexes;
+
+    public Historique(HistoriqueID historiqueID, String numFournisseur, String raisonSocial, String numBonde, String numFact, String ttc, LocalDateTime dateFact) {
+        this.historiqueID = historiqueID;
+        this.numFournisseur = numFournisseur;
+        this.raisonSocial = raisonSocial;
+        this.numBonde = numBonde;
+        this.numFact = numFact;
+        this.ttc = ttc;
+        this.dateFact = dateFact;
+        //this.annexes = annexes;
+       // this.structures = structures;
+        //this.structure = structure;
     }
 
-    @JsonIgnore
-    public List<Structure> getStructures() {
-        return structures;
-    }
-    public Structure getStructure() {
-        return structure;
-    }
-
-    public void setStructure(Structure structure) {
-        this.structure = structure;
-    }
-    public void setStructures(List<Structure> structures) {
-        this.structures = structures;
-    }
 
 
 }

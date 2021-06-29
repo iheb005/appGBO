@@ -84,25 +84,25 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @PostConstruct
     @Transactional
    public void initUser() {
-     /*  Utilisateur u = new Utilisateur();
-        u.setNomPrenom("EyaBoulaabi");
+       /*Utilisateur u = new Utilisateur();
+        u.setNomPrenom("Ihebelfekih");
         u.setEmail("RS@gmail.com");
         u.setPassword("RS");
          u.setActive(true);
         u.setRole("ROLE_RS");
         u.setTypeStructure("Informatique");
-        u.setTelephone("50322452");
+        u.setTelephone("12345678");
         this.save(u);
      Utilisateur u1 = new Utilisateur();
-        u1.setNomPrenom("AminaBenNasser");
-        u1.setEmail("admin@gmail.com");
+        u1.setNomPrenom("zbenabdallah");
+        u1.setEmail("zbenabdallah@gmail.com");
         u1.setPassword("admin");
         u1.setActive(true);
         u1.setRole("ROLE_ADMIN");
         //u.setStructures("Informatique");
-        u1.setTelephone("50322452");
+        u1.setTelephone("12345698");
         this.save(u1);
-       Utilisateur u2 = new Utilisateur();
+      Utilisateur u2 = new Utilisateur();
        u2.setNomPrenom("AliSalhi");
         u2.setEmail("rs@gmail.com");
        u2.setPassword("rs");
@@ -111,15 +111,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      u2.setTypeStructure("Achat");
         u2.setTelephone("50745552");
         this.save(u2);
-        Utilisateur u3 = new Utilisateur();
-        u3.setNomPrenom("Amenibenabdallh");
+       */
+       Utilisateur u3 = new Utilisateur();
+        u3.setNomPrenom("respBO");
         u3.setEmail("rbo@gmail.com");
         u3.setPassword("rbo");
         u3.setActive(true);
         u3.setRole("ROLE_RBO");
         //u2.setStructures("Achat");
         u3.setTelephone("50745552");
-        this.save(u3);*/
+        this.save(u3);
    }
 
 
